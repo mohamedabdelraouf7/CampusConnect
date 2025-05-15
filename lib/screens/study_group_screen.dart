@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/app_state.dart';
-import '../models/study_group_model.dart';
 import '../widgets/study_group_card.dart';
 import 'study_group_detail_screen.dart';
 import 'study_group_form_screen.dart';

@@ -10,6 +10,7 @@ class CampusEventScreen extends StatefulWidget {
   const CampusEventScreen({Key? key, required this.appState}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CampusEventScreenState createState() => _CampusEventScreenState();
 }
 
@@ -54,6 +55,7 @@ class _CampusEventScreenState extends State<CampusEventScreen> {
                 });
               },
               backgroundColor: Colors.grey[200],
+              // ignore: deprecated_member_use
               selectedColor: Theme.of(context).primaryColor.withOpacity(0.2),
               checkmarkColor: Theme.of(context).primaryColor,
             ),

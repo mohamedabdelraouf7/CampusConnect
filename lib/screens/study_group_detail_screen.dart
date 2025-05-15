@@ -18,13 +18,35 @@ class StudyGroupDetailScreen extends StatefulWidget {
   _StudyGroupDetailScreenState createState() => _StudyGroupDetailScreenState();
 }
 
-class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> {
+class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> with SingleTickerProviderStateMixin {
   late StudyGroupModel _studyGroup;
+  late TabController _tabController;
+  final TextEditingController _noteController = TextEditingController();
+  final TextEditingController _noteTitleController = TextEditingController();
+  List<Map<String, dynamic>> _groupNotes = [];
   
   @override
   void initState() {
     super.initState();
     _studyGroup = widget.studyGroup;
+    _tabController = TabController(length: 2, vsync: this);
+    
+    // Listen for real-time notes updates
+    widget.appState.firebaseService
+        .getGroupNotesStream(_studyGroup.id)
+        .listen((notes) {
+      setState(() {
+        _groupNotes = notes;
+      });
+    });
+  }
+  
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _noteController.dispose();
+    _noteTitleController.dispose();
+    super.dispose();
   }
   
   void _toggleJoinStatus() {
@@ -426,6 +448,115 @@ class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> {
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+  
+  // Move this method inside the class
+  Widget _buildNotesTab() {
+    return Column(
+      children: [
+        Expanded(
+          child: _groupNotes.isEmpty
+              ? const Center(
+                  child: Text('No shared notes yet. Be the first to add one!'),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: _groupNotes.length,
+                  itemBuilder: (context, index) {
+                    final note = _groupNotes[index];
+                    final timestamp = DateTime.fromMillisecondsSinceEpoch(
+                        note['timestamp'] as int);
+                    final dateFormat = DateFormat('MMM d, yyyy • h:mm a');
+                    
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              note['title'] as String,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              note['content'] as String,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Text(
+                                  'By: ${note['authorName']}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  dateFormat.format(timestamp),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                controller: _noteTitleController,
+                decoration: const InputDecoration(
+                  labelText: 'Note Title',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _noteController,
+                decoration: const InputDecoration(
+                  labelText: 'Share a note with the group',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  if (_noteController.text.isNotEmpty && 
+                      _noteTitleController.text.isNotEmpty) {
+                    // Use firebaseService directly instead of going through appState
+                    widget.appState.firebaseService.addStudyGroupNote(
+                      _studyGroup.id,
+                      _noteTitleController.text,
+                      _noteController.text,
+                      'You', // In a real app, use the current user's name
+                    );
+                    _noteController.clear();
+                    _noteTitleController.clear();
+                  }
+                },
+                child: const Text('Share Note'),
+              ),
+            ],
+          ),
         ),
       ],
     );

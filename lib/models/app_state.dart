@@ -7,6 +7,8 @@ import 'study_group_model.dart';
 import 'note_model.dart';
 import 'notification_model.dart';
 import '../utils/database_helper.dart';
+import '../services/firebase_service.dart';
+import 'announcement_model.dart';
 
 class AppState extends ChangeNotifier {
   final SharedPreferences prefs;
@@ -43,9 +45,67 @@ class AppState extends ChangeNotifier {
   int studyGroupReminderMinutes = 60;
   List<int> deadlineReminderTimes = [60, 1440, 4320]; // 1 hour, 1 day, 3 days
   
+  // Constructor that properly initializes the prefs variable
   AppState(this.prefs) {
     _loadPreferences();
-    _loadData();
+    _loadLocalData();
+    _initializeFirebase();
+  }
+  
+  final FirebaseService firebaseService = FirebaseService();
+  List<AnnouncementModel> announcements = [];
+  
+  // Add this method to initialize Firebase
+  Future<void> _initializeFirebase() async {
+    await firebaseService.initialize();
+    _setupFirebaseListeners();
+  }
+  
+  // Add this method to set up Firebase listeners
+  void _setupFirebaseListeners() {
+    // Listen for study group changes
+    firebaseService.getStudyGroupsStream().listen((groups) {
+      studyGroups = groups;
+      notifyListeners();
+    });
+    
+    // Listen for event changes
+    firebaseService.getEventsStream().listen((eventsList) {
+      events = eventsList;
+      notifyListeners();
+    });
+    
+    // Listen for announcements
+    firebaseService.getAnnouncementsStream().listen((announcementsList) {
+      announcements = announcementsList;
+      notifyListeners();
+    });
+  }
+  
+  // Load data from local database
+  Future<void> _loadLocalData() async {
+    try {
+      classes = await dbHelper.getClasses();
+      
+      // Only load these from local if we're offline
+      if (studyGroups.isEmpty) {
+        studyGroups = await dbHelper.getStudyGroups();
+      }
+      
+      if (events.isEmpty) {
+        events = await dbHelper.getEvents();
+      }
+      
+      notes = await dbHelper.getNotes();
+      notifyListeners();
+    } catch (e) {
+      print('Error loading local data: $e');
+    }
+  }
+  
+  // Fix the addStudyGroupNote method - it was nested inside _loadPreferences
+  void addStudyGroupNote(String groupId, String title, String content, String authorName) {
+    firebaseService.addStudyGroupNote(groupId, title, content, authorName);
   }
   
   void _loadPreferences() {
@@ -62,7 +122,7 @@ class AppState extends ChangeNotifier {
     eventReminderMinutes = prefs.getInt('eventReminderMinutes') ?? 60;
     studyGroupReminderMinutes = prefs.getInt('studyGroupReminderMinutes') ?? 60;
     deadlineReminderTimes = prefs.getStringList('deadlineReminderTimes')?.map(int.parse).toList() ?? [60, 1440, 4320];
-    
+
     // Load notifications from SharedPreferences
     final notificationsJson = prefs.getStringList('notifications') ?? [];
     notifications = notificationsJson

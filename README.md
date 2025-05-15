@@ -1,4 +1,4 @@
-# CampusConnect
+# campusconnect
 
 A new Flutter project.
 

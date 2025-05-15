@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart'; // Add this import
 import 'screens/home_screen.dart';
 import 'screens/class_schedule_screen.dart';
 import 'screens/study_group_screen.dart';
@@ -13,9 +15,16 @@ import 'models/app_state.dart';
 import 'utils/theme.dart';
 import 'utils/database_helper.dart';
 import 'services/notification_service.dart';
+import 'screens/announcements_screen.dart'; // Make sure this is imported
+import 'services/sync_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   
   // Initialize database - conditionally based on platform
   if (!kIsWeb) {
@@ -23,6 +32,9 @@ void main() async {
     
     // Initialize notification service - only for non-web platforms
     await NotificationService().init();
+    
+    // Initialize sync service
+    await SyncService().initialize();
   }
   
   // Initialize app state with shared preferences
@@ -93,6 +105,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       ClassScheduleScreen(appState: widget.appState),
       StudyGroupScreen(appState: widget.appState),
       CampusEventScreen(appState: widget.appState),
+      AnnouncementsScreen(appState: widget.appState), // Add announcements screen
       NotesScreen(appState: widget.appState),
       ProfileScreen(appState: widget.appState),
     ];
@@ -126,6 +139,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
             label: 'Events',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.announcement),
+            label: 'Announcements',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.note_alt),

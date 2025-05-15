@@ -23,7 +23,3 @@ plugins {
 }
 
 include(":app")
-
-dependencies {
-    implementation "org.codehaus.groovy:groovy:3.0.22"
-}

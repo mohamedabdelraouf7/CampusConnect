@@ -58,7 +58,6 @@ class NotificationList extends StatelessWidget {
   }
 
   Widget _buildNotificationItem(BuildContext context, NotificationModel notification) {
-    final dateFormat = DateFormat('MMM d, h:mm a');
     final timeAgo = _getTimeAgo(notification.timestamp);
     
     return Dismissible(
@@ -153,6 +152,7 @@ class NotificationList extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: iconColor.withOpacity(0.1),
         shape: BoxShape.circle,
       ),

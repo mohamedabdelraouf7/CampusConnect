@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/app_state.dart';
-import '../models/class_model.dart';
 import '../widgets/class_card.dart';
 import 'class_detail_screen.dart';
 import 'class_form_screen.dart';
