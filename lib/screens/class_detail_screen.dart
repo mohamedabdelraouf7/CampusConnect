@@ -8,10 +8,10 @@ class ClassDetailScreen extends StatefulWidget {
   final ClassModel classItem;
   
   const ClassDetailScreen({
-    Key? key, 
+    super.key, 
     required this.appState, 
     required this.classItem,
-  }) : super(key: key);
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -27,32 +27,31 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
     _classItem = widget.classItem;
   }
   
-  void _deleteClass() {
-    showDialog(
+  Future<void> _deleteClass() async {
+    final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Class'),
-        content: const Text('Are you sure you want to delete this class? This action cannot be undone.'),
+        content: const Text('Are you sure you want to delete this class?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {
-              // Remove class from app state
-              widget.appState.classes.removeWhere((c) => c.id == _classItem.id);
-              widget.appState.saveClasses();
-              
-              // Close dialog and return to previous screen
-              Navigator.pop(context); // Close dialog
-              Navigator.pop(context, true); // Return to previous screen with result
-            },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Delete'),
           ),
         ],
       ),
     );
+
+    if (confirmed == true && mounted) {
+      await widget.appState.deleteClass(widget.classItem.id);
+      if (mounted) {
+        Navigator.pop(context, true);
+      }
+    }
   }
   
   @override

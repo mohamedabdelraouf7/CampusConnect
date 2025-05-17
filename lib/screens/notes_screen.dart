@@ -6,7 +6,7 @@ import '../models/note_model.dart';
 class NotesScreen extends StatefulWidget {
   final AppState appState;
   
-  const NotesScreen({Key? key, required this.appState}) : super(key: key);
+  const NotesScreen({super.key, required this.appState});
 
   @override
   _NotesScreenState createState() => _NotesScreenState();
@@ -149,7 +149,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
               ),
               onChanged: (value) {
@@ -361,10 +361,10 @@ class NoteEditorScreen extends StatefulWidget {
   final NoteModel? note;
   
   const NoteEditorScreen({
-    Key? key,
+    super.key,
     required this.appState,
     this.note,
-  }) : super(key: key);
+  });
 
   @override
   _NoteEditorScreenState createState() => _NoteEditorScreenState();

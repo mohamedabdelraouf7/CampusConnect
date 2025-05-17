@@ -7,10 +7,10 @@ class StudyGroupCard extends StatelessWidget {
   final VoidCallback onTap;
   
   const StudyGroupCard({
-    Key? key,
+    super.key,
     required this.studyGroup,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

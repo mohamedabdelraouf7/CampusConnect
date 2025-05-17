@@ -9,10 +9,13 @@ import 'notification_model.dart';
 import '../utils/database_helper.dart';
 import '../services/firebase_service.dart';
 import 'announcement_model.dart';
+import 'dart:io' show Platform;
 
 class AppState extends ChangeNotifier {
   final SharedPreferences prefs;
   final DatabaseHelper dbHelper = DatabaseHelper();
+  final FirebaseService firebaseService;
+  bool _isInitialized = false;
   
   List<ClassModel> classes = [];
   List<EventModel> events = [];
@@ -26,6 +29,7 @@ class AppState extends ChangeNotifier {
   String userEmail = 'student@example.com';
   
   bool get isDarkMode => _isDarkMode;
+  bool get isInitialized => _isInitialized;
   
   set isDarkMode(bool value) {
     if (_isDarkMode != value) {
@@ -46,57 +50,95 @@ class AppState extends ChangeNotifier {
   List<int> deadlineReminderTimes = [60, 1440, 4320]; // 1 hour, 1 day, 3 days
   
   // Constructor that properly initializes the prefs variable
-  AppState(this.prefs) {
+  AppState(this.prefs, {FirebaseService? firebaseService})
+      : firebaseService = firebaseService ?? FirebaseService() {
     _loadPreferences();
     _loadLocalData();
-    _initializeFirebase();
+    initializeFirebase();
   }
   
-  final FirebaseService firebaseService = FirebaseService();
   List<AnnouncementModel> announcements = [];
   
   // Add this method to initialize Firebase
-  Future<void> _initializeFirebase() async {
-    await firebaseService.initialize();
-    _setupFirebaseListeners();
+  Future<void> initializeFirebase() async {
+    try {
+      await firebaseService.initialize();
+      _setupFirebaseListeners();
+      _isInitialized = true;
+      notifyListeners();
+    } catch (e) {
+      print('Error initializing Firebase: $e');
+      // Keep the app running even if Firebase fails to initialize
+      // The user can retry later
+    }
   }
   
   // Add this method to set up Firebase listeners
   void _setupFirebaseListeners() {
+    if (Platform.isWindows) return;
+
     // Listen for study group changes
-    firebaseService.getStudyGroupsStream().listen((groups) {
-      studyGroups = groups;
-      notifyListeners();
-    });
+    firebaseService.getStudyGroupsStream().listen(
+      (groups) {
+        studyGroups = groups;
+        notifyListeners();
+      },
+      onError: (e) {
+        print('Error in study groups stream: $e');
+      },
+    );
     
     // Listen for event changes
-    firebaseService.getEventsStream().listen((eventsList) {
-      events = eventsList;
-      notifyListeners();
-    });
+    firebaseService.getEventsStream().listen(
+      (eventsList) {
+        events = eventsList;
+        notifyListeners();
+      },
+      onError: (e) {
+        print('Error in events stream: $e');
+      },
+    );
     
     // Listen for announcements
-    firebaseService.getAnnouncementsStream().listen((announcementsList) {
-      announcements = announcementsList;
-      notifyListeners();
-    });
+    firebaseService.getAnnouncementsStream().listen(
+      (announcementsList) {
+        announcements = announcementsList;
+        notifyListeners();
+      },
+      onError: (e) {
+        print('Error in announcements stream: $e');
+      },
+    );
+
+    // Listen for class changes
+    firebaseService.getClassesStream().listen(
+      (classesList) {
+        classes = classesList;
+        notifyListeners();
+      },
+      onError: (e) {
+        print('Error in classes stream: $e');
+      },
+    );
   }
   
   // Load data from local database
   Future<void> _loadLocalData() async {
     try {
-      classes = await dbHelper.getClasses();
-      
-      // Only load these from local if we're offline
-      if (studyGroups.isEmpty) {
-        studyGroups = await dbHelper.getStudyGroups();
+      if (!kIsWeb) {
+        classes = await dbHelper.getClasses();
+        if (studyGroups.isEmpty) {
+          studyGroups = await dbHelper.getStudyGroups();
+        }
+        if (events.isEmpty) {
+          events = await dbHelper.getEvents();
+        }
+        notes = await dbHelper.getNotes();
+      } else {
+        // On web, only load notes from SharedPreferences
+        final notesJson = prefs.getStringList('notes') ?? [];
+        notes = notesJson.map((json) => NoteModel.fromJson(jsonDecode(json))).toList();
       }
-      
-      if (events.isEmpty) {
-        events = await dbHelper.getEvents();
-      }
-      
-      notes = await dbHelper.getNotes();
       notifyListeners();
     } catch (e) {
       print('Error loading local data: $e');
@@ -174,28 +216,20 @@ class AppState extends ChangeNotifier {
   
   // Class methods
   Future<void> addClass(ClassModel classModel) async {
-    await dbHelper.insertClass(classModel);
-    classes = await dbHelper.getClasses();
+    await firebaseService.addOrUpdateClass(classModel);
   }
   
   Future<void> updateClass(ClassModel classModel) async {
-    await dbHelper.updateClass(classModel);
-    classes = await dbHelper.getClasses();
+    await firebaseService.addOrUpdateClass(classModel);
   }
   
   Future<void> deleteClass(String id) async {
-    await dbHelper.deleteClass(id);
-    classes = await dbHelper.getClasses();
-  }
-  
-  Future<void> saveClasses() async {
-    // This method is kept for backward compatibility
-    // Now we save each class individually when it's added/updated/deleted
+    await firebaseService.deleteClass(id);
   }
   
   // Event methods
   Future<void> addEvent(EventModel event) async {
-    await dbHelper.insertEvent(event);
+    await dbHelper.updateEvent(event);
     events = await dbHelper.getEvents();
   }
   
@@ -209,46 +243,80 @@ class AppState extends ChangeNotifier {
     events = await dbHelper.getEvents();
   }
   
-  Future<void> saveEvents() async {
-    // This method is kept for backward compatibility
-    // Now we save each event individually when it's added/updated/deleted
-  }
-  
   // Study group methods
   Future<void> addStudyGroup(StudyGroupModel studyGroup) async {
-    await dbHelper.insertStudyGroup(studyGroup);
-    studyGroups = await dbHelper.getStudyGroups();
+    try {
+      await dbHelper.insertStudyGroup(studyGroup);
+      studyGroups = await dbHelper.getStudyGroups();
+    } on UnsupportedError catch (_) {
+      // On web: skip local DB, optionally log or handle gracefully
+    }
   }
   
   Future<void> updateStudyGroup(StudyGroupModel studyGroup) async {
-    await dbHelper.updateStudyGroup(studyGroup);
-    studyGroups = await dbHelper.getStudyGroups();
+    try {
+      await dbHelper.updateStudyGroup(studyGroup);
+      studyGroups = await dbHelper.getStudyGroups();
+    } on UnsupportedError catch (_) {
+      // On web: skip local DB, optionally log or handle gracefully
+    }
   }
   
   Future<void> deleteStudyGroup(String id) async {
-    await dbHelper.deleteStudyGroup(id);
-    studyGroups = await dbHelper.getStudyGroups();
-  }
-  
-  Future<void> saveStudyGroups() async {
-    // This method is kept for backward compatibility
-    // Now we save each study group individually when it's added/updated/deleted
+    try {
+      await dbHelper.deleteStudyGroup(id);
+      studyGroups = await dbHelper.getStudyGroups();
+    } on UnsupportedError catch (_) {
+      // On web: skip local DB, optionally log or handle gracefully
+    }
   }
   
   // Note methods
   Future<void> addNote(NoteModel note) async {
-    await dbHelper.insertNote(note);
-    notes = await dbHelper.getNotes();
+    if (kIsWeb) {
+      final notesJson = prefs.getStringList('notes') ?? [];
+      final updatedNotes = List<String>.from(notesJson)
+        ..add(jsonEncode(note.toJson()));
+      await prefs.setStringList('notes', updatedNotes);
+      notes = updatedNotes.map((json) => NoteModel.fromJson(jsonDecode(json))).toList();
+    } else {
+      await dbHelper.insertNote(note);
+      notes = await dbHelper.getNotes();
+    }
+    print("addNote called: ${note.title}");
+    notifyListeners();
   }
   
   Future<void> updateNote(NoteModel note) async {
-    await dbHelper.updateNote(note);
-    notes = await dbHelper.getNotes();
+    if (kIsWeb) {
+      final notesJson = prefs.getStringList('notes') ?? [];
+      final updatedNotes = notesJson.map((json) {
+        final n = NoteModel.fromJson(jsonDecode(json));
+        return n.id == note.id ? jsonEncode(note.toJson()) : json;
+      }).toList();
+      await prefs.setStringList('notes', updatedNotes);
+      notes = updatedNotes.map((json) => NoteModel.fromJson(jsonDecode(json))).toList();
+    } else {
+      await dbHelper.updateNote(note);
+      notes = await dbHelper.getNotes();
+    }
+    notifyListeners();
   }
   
   Future<void> deleteNote(String id) async {
-    await dbHelper.deleteNote(id);
-    notes = await dbHelper.getNotes();
+    if (kIsWeb) {
+      final notesJson = prefs.getStringList('notes') ?? [];
+      final updatedNotes = notesJson.where((json) {
+        final n = NoteModel.fromJson(jsonDecode(json));
+        return n.id != id;
+      }).toList();
+      await prefs.setStringList('notes', updatedNotes);
+      notes = updatedNotes.map((json) => NoteModel.fromJson(jsonDecode(json))).toList();
+    } else {
+      await dbHelper.deleteNote(id);
+      notes = await dbHelper.getNotes();
+    }
+    notifyListeners();
   }
   
   // Helper methods

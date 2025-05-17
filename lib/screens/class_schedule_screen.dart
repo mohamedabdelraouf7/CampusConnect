@@ -7,7 +7,7 @@ import 'class_form_screen.dart';
 class ClassScheduleScreen extends StatefulWidget {
   final AppState appState;
   
-  const ClassScheduleScreen({Key? key, required this.appState}) : super(key: key);
+  const ClassScheduleScreen({super.key, required this.appState});
 
   @override
   _ClassScheduleScreenState createState() => _ClassScheduleScreenState();

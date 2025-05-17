@@ -3,16 +3,17 @@ import 'package:intl/intl.dart';
 import '../models/app_state.dart';
 import '../models/study_group_model.dart';
 import 'study_group_form_screen.dart';
+import 'study_group_chat_screen.dart';
 
 class StudyGroupDetailScreen extends StatefulWidget {
   final AppState appState;
   final StudyGroupModel studyGroup;
   
   const StudyGroupDetailScreen({
-    Key? key, 
+    super.key, 
     required this.appState, 
     required this.studyGroup,
-  }) : super(key: key);
+  });
 
   @override
   _StudyGroupDetailScreenState createState() => _StudyGroupDetailScreenState();
@@ -49,83 +50,73 @@ class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> with Si
     super.dispose();
   }
   
-  void _toggleJoinStatus() {
-    setState(() {
-      final isCurrentlyJoined = _studyGroup.isJoined;
-      
-      if (isCurrentlyJoined) {
-        // Leave the group
-        final updatedParticipants = List<String>.from(_studyGroup.participants);
-        updatedParticipants.remove('You'); // In a real app, remove current user
-        
-        _studyGroup = StudyGroupModel(
-          id: _studyGroup.id,
-          topic: _studyGroup.topic,
-          courseCode: _studyGroup.courseCode,
-          courseName: _studyGroup.courseName,
-          location: _studyGroup.location,
-          dateTime: _studyGroup.dateTime,
-          description: _studyGroup.description,
-          createdBy: _studyGroup.createdBy,
-          maxParticipants: _studyGroup.maxParticipants,
-          participants: updatedParticipants,
-          isJoined: false,
-        );
-      } else {
-        // Join the group
-        final updatedParticipants = List<String>.from(_studyGroup.participants);
-        updatedParticipants.add('You'); // In a real app, add current user
-        
-        _studyGroup = StudyGroupModel(
-          id: _studyGroup.id,
-          topic: _studyGroup.topic,
-          courseCode: _studyGroup.courseCode,
-          courseName: _studyGroup.courseName,
-          location: _studyGroup.location,
-          dateTime: _studyGroup.dateTime,
-          description: _studyGroup.description,
-          createdBy: _studyGroup.createdBy,
-          maxParticipants: _studyGroup.maxParticipants,
-          participants: updatedParticipants,
-          isJoined: true,
+  Future<void> _joinStudyGroup() async {
+    try {
+      final updatedGroup = widget.studyGroup.copyWith(
+        participants: [...widget.studyGroup.participants, widget.appState.userEmail],
+      );
+      await widget.appState.firebaseService.addOrUpdateStudyGroup(updatedGroup);
+      if (mounted) {
+        setState(() {
+          _studyGroup = updatedGroup;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error joining study group: $e')),
         );
       }
-      
-      // Update the study group in app state
-      final index = widget.appState.studyGroups.indexWhere((sg) => sg.id == _studyGroup.id);
-      if (index != -1) {
-        widget.appState.studyGroups[index] = _studyGroup;
-        widget.appState.saveStudyGroups();
+    }
+  }
+
+  Future<void> _leaveStudyGroup() async {
+    try {
+      final updatedGroup = widget.studyGroup.copyWith(
+        participants: widget.studyGroup.participants
+            .where((email) => email != widget.appState.userEmail)
+            .toList(),
+      );
+      await widget.appState.firebaseService.addOrUpdateStudyGroup(updatedGroup);
+      if (mounted) {
+        setState(() {
+          _studyGroup = updatedGroup;
+        });
       }
-    });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error leaving study group: $e')),
+        );
+      }
+    }
   }
   
-  void _deleteStudyGroup() {
-    showDialog(
+  Future<void> _deleteStudyGroup() async {
+    final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Study Group'),
-        content: const Text('Are you sure you want to delete this study group? This action cannot be undone.'),
+        content: const Text('Are you sure you want to delete this study group?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {
-              // Remove study group from app state
-              widget.appState.studyGroups.removeWhere((sg) => sg.id == _studyGroup.id);
-              widget.appState.saveStudyGroups();
-              
-              // Close dialog and return to previous screen
-              Navigator.pop(context); // Close dialog
-              Navigator.pop(context, true); // Return to previous screen with result
-            },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Delete'),
           ),
         ],
       ),
     );
+
+    if (confirmed == true && mounted) {
+      await widget.appState.deleteStudyGroup(widget.studyGroup.id);
+      if (mounted) {
+        Navigator.pop(context, true);
+      }
+    }
   }
   
   @override
@@ -138,6 +129,21 @@ class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> with Si
       appBar: AppBar(
         title: const Text('Study Group Details'),
         actions: [
+          if (_studyGroup.isJoined)
+            IconButton(
+              icon: const Icon(Icons.chat),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StudyGroupChatScreen(
+                      appState: widget.appState,
+                      studyGroup: _studyGroup,
+                    ),
+                  ),
+                );
+              },
+            ),
           if (isCreator) ...[
             IconButton(
               icon: const Icon(Icons.edit),
@@ -383,7 +389,7 @@ class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> with Si
               child: ElevatedButton(
                 onPressed: _studyGroup.participants.length >= _studyGroup.maxParticipants && !_studyGroup.isJoined
                     ? null // Disable if group is full and user is not already a member
-                    : _toggleJoinStatus,
+                    : _studyGroup.isJoined ? _leaveStudyGroup : _joinStudyGroup,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: _studyGroup.isJoined ? Colors.red : Colors.green,
@@ -453,112 +459,12 @@ class _StudyGroupDetailScreenState extends State<StudyGroupDetailScreen> with Si
     );
   }
   
-  // Move this method inside the class
-  Widget _buildNotesTab() {
-    return Column(
-      children: [
-        Expanded(
-          child: _groupNotes.isEmpty
-              ? const Center(
-                  child: Text('No shared notes yet. Be the first to add one!'),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _groupNotes.length,
-                  itemBuilder: (context, index) {
-                    final note = _groupNotes[index];
-                    final timestamp = DateTime.fromMillisecondsSinceEpoch(
-                        note['timestamp'] as int);
-                    final dateFormat = DateFormat('MMM d, yyyy • h:mm a');
-                    
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              note['title'] as String,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              note['content'] as String,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            const SizedBox(height: 16),
-                            Row(
-                              children: [
-                                Text(
-                                  'By: ${note['authorName']}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  dateFormat.format(timestamp),
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              TextField(
-                controller: _noteTitleController,
-                decoration: const InputDecoration(
-                  labelText: 'Note Title',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _noteController,
-                decoration: const InputDecoration(
-                  labelText: 'Share a note with the group',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () {
-                  if (_noteController.text.isNotEmpty && 
-                      _noteTitleController.text.isNotEmpty) {
-                    // Use firebaseService directly instead of going through appState
-                    widget.appState.firebaseService.addStudyGroupNote(
-                      _studyGroup.id,
-                      _noteTitleController.text,
-                      _noteController.text,
-                      'You', // In a real app, use the current user's name
-                    );
-                    _noteController.clear();
-                    _noteTitleController.clear();
-                  }
-                },
-                child: const Text('Share Note'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+  // Update color opacity usage
+  Color _getStatusColor() {
+    final now = DateTime.now();
+    if (widget.studyGroup.dateTime.isBefore(now)) {
+      return Colors.grey.withAlpha(128); // Using withAlpha instead of withOpacity
+    }
+    return Theme.of(context).primaryColor.withAlpha(128);
   }
 }

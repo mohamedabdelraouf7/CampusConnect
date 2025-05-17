@@ -7,7 +7,7 @@ import 'study_group_form_screen.dart';
 class StudyGroupScreen extends StatefulWidget {
   final AppState appState;
   
-  const StudyGroupScreen({Key? key, required this.appState}) : super(key: key);
+  const StudyGroupScreen({super.key, required this.appState});
 
   @override
   _StudyGroupScreenState createState() => _StudyGroupScreenState();
@@ -15,6 +15,7 @@ class StudyGroupScreen extends StatefulWidget {
 
 class _StudyGroupScreenState extends State<StudyGroupScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  String? _error;
   
   @override
   void initState() {
@@ -34,21 +35,22 @@ class _StudyGroupScreenState extends State<StudyGroupScreen> with SingleTickerPr
       appBar: AppBar(
         title: const Text('Study Groups'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => StudyGroupFormScreen(appState: widget.appState),
-                ),
-              );
-              
-              if (result == true) {
-                setState(() {});
-              }
-            },
-          ),
+          if (widget.appState.isInitialized)
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StudyGroupFormScreen(appState: widget.appState),
+                  ),
+                );
+                
+                if (result == true) {
+                  setState(() {});
+                }
+              },
+            ),
         ],
         bottom: TabBar(
           controller: _tabController,
@@ -58,13 +60,43 @@ class _StudyGroupScreenState extends State<StudyGroupScreen> with SingleTickerPr
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildUpcomingStudyGroups(),
-          _buildMyStudyGroups(),
-        ],
-      ),
+      body: !widget.appState.isInitialized
+          ? const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text('Loading study groups...'),
+                ],
+              ),
+            )
+          : _error != null
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      const SizedBox(height: 16),
+                      Text(_error!, style: const TextStyle(color: Colors.red)),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() => _error = null);
+                          widget.appState.initializeFirebase();
+                        },
+                        child: const Text('Retry'),
+                      ),
+                    ],
+                  ),
+                )
+              : TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildUpcomingStudyGroups(),
+                    _buildMyStudyGroups(),
+                  ],
+                ),
     );
   }
   
@@ -86,30 +118,39 @@ class _StudyGroupScreenState extends State<StudyGroupScreen> with SingleTickerPr
       );
     }
     
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: upcomingGroups.length,
-      itemBuilder: (context, index) {
-        final group = upcomingGroups[index];
-        return StudyGroupCard(
-          studyGroup: group,
-          onTap: () async {
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => StudyGroupDetailScreen(
-                  appState: widget.appState,
-                  studyGroup: group,
-                ),
-              ),
-            );
-            
-            if (result == true) {
-              setState(() {});
-            }
-          },
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        try {
+          await widget.appState.firebaseService.initialize();
+        } catch (e) {
+          setState(() => _error = e.toString());
+        }
       },
+      child: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: upcomingGroups.length,
+        itemBuilder: (context, index) {
+          final group = upcomingGroups[index];
+          return StudyGroupCard(
+            studyGroup: group,
+            onTap: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudyGroupDetailScreen(
+                    appState: widget.appState,
+                    studyGroup: group,
+                  ),
+                ),
+              );
+              
+              if (result == true) {
+                setState(() {});
+              }
+            },
+          );
+        },
+      ),
     );
   }
   
@@ -127,30 +168,39 @@ class _StudyGroupScreenState extends State<StudyGroupScreen> with SingleTickerPr
       );
     }
     
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: myGroups.length,
-      itemBuilder: (context, index) {
-        final group = myGroups[index];
-        return StudyGroupCard(
-          studyGroup: group,
-          onTap: () async {
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => StudyGroupDetailScreen(
-                  appState: widget.appState,
-                  studyGroup: group,
-                ),
-              ),
-            );
-            
-            if (result == true) {
-              setState(() {});
-            }
-          },
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        try {
+          await widget.appState.firebaseService.initialize();
+        } catch (e) {
+          setState(() => _error = e.toString());
+        }
       },
+      child: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: myGroups.length,
+        itemBuilder: (context, index) {
+          final group = myGroups[index];
+          return StudyGroupCard(
+            studyGroup: group,
+            onTap: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StudyGroupDetailScreen(
+                    appState: widget.appState,
+                    studyGroup: group,
+                  ),
+                ),
+              );
+              
+              if (result == true) {
+                setState(() {});
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

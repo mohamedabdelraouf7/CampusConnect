@@ -7,10 +7,10 @@ class EventCard extends StatelessWidget {
   final VoidCallback onTap;
   
   const EventCard({
-    Key? key,
+    super.key,
     required this.event,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -97,21 +97,11 @@ class EventCard extends StatelessWidget {
                   ),
                   
                   // RSVP indicator
-                  if (event.isRsvped)
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Text(
-                        'RSVP\'d',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
+                  if (event.isAttending)
+                    Chip(
+                      label: const Text('Attending'),
+                      backgroundColor: Colors.green.withAlpha(128),
+                      labelStyle: const TextStyle(color: Colors.green),
                     ),
                 ],
               ),
@@ -177,5 +167,23 @@ class EventCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildEventStatus() {
+    if (event.isAttending) {
+      return Chip(
+        label: const Text('Attending'),
+        backgroundColor: Colors.green.withAlpha(128),
+        labelStyle: const TextStyle(color: Colors.green),
+      );
+    }
+    if (event.isFull) {
+      return Chip(
+        label: const Text('Full'),
+        backgroundColor: Colors.red.withAlpha(128),
+        labelStyle: const TextStyle(color: Colors.red),
+      );
+    }
+    return const SizedBox.shrink();
   }
 }

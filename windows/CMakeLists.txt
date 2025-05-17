@@ -1,5 +1,5 @@
 # Project-level configuration.
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.14...3.25)
 project(campusconnect LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
@@ -23,6 +23,12 @@ else()
       "Debug" "Profile" "Release")
   endif()
 endif()
+
+# Add compiler flags to handle deprecation warnings
+if(MSVC)
+  add_compile_options(/wd4996)  # Disable deprecation warnings
+endif()
+
 # Define settings for the Profile build mode.
 set(CMAKE_EXE_LINKER_FLAGS_PROFILE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 set(CMAKE_SHARED_LINKER_FLAGS_PROFILE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
@@ -106,3 +112,7 @@ install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
 install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   CONFIGURATIONS Profile;Release
   COMPONENT Runtime)
+
+if(MSVC)
+  add_link_options(/ignore:4099)
+endif()

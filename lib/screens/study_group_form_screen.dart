@@ -3,16 +3,18 @@ import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import '../models/app_state.dart';
 import '../models/study_group_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../widgets/animated_checkmark.dart';
 
 class StudyGroupFormScreen extends StatefulWidget {
   final AppState appState;
   final StudyGroupModel? studyGroup; // Null for new group, non-null for editing
   
   const StudyGroupFormScreen({
-    Key? key, 
+    super.key, 
     required this.appState, 
     this.studyGroup,
-  }) : super(key: key);
+  });
 
   @override
   _StudyGroupFormScreenState createState() => _StudyGroupFormScreenState();
@@ -26,8 +28,15 @@ class _StudyGroupFormScreenState extends State<StudyGroupFormScreen> {
   final _locationController = TextEditingController();
   final _descriptionController = TextEditingController();
   
-  DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
+  DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+  DateTime get _selectedDateTime => DateTime(
+    _selectedDate.year,
+    _selectedDate.month,
+    _selectedDate.day,
+    _selectedTime.hour,
+    _selectedTime.minute,
+  );
   int _maxParticipants = 10;
   
   bool get _isEditing => widget.studyGroup != null;
@@ -44,15 +53,8 @@ class _StudyGroupFormScreenState extends State<StudyGroupFormScreen> {
       _courseNameController.text = studyGroup.courseName;
       _locationController.text = studyGroup.location;
       _descriptionController.text = studyGroup.description;
-      _selectedDate = DateTime(
-        studyGroup.dateTime.year,
-        studyGroup.dateTime.month,
-        studyGroup.dateTime.day,
-      );
-      _selectedTime = TimeOfDay(
-        hour: studyGroup.dateTime.hour,
-        minute: studyGroup.dateTime.minute,
-      );
+      _selectedDate = studyGroup.dateTime;
+      _selectedTime = TimeOfDay.fromDateTime(studyGroup.dateTime);
       _maxParticipants = studyGroup.maxParticipants;
     }
   }
@@ -95,44 +97,42 @@ class _StudyGroupFormScreenState extends State<StudyGroupFormScreen> {
     }
   }
   
-  void _saveStudyGroup() {
-    if (_formKey.currentState!.validate()) {
-      // Combine date and time
-      final dateTime = DateTime(
-        _selectedDate.year,
-        _selectedDate.month,
-        _selectedDate.day,
-        _selectedTime.hour,
-        _selectedTime.minute,
-      );
+  Future<void> _saveStudyGroup() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
       
       final studyGroup = StudyGroupModel(
-        id: _isEditing ? widget.studyGroup!.id : const Uuid().v4(),
-        topic: _topicController.text,
+        id: widget.studyGroup?.id ?? const Uuid().v4(),
         courseCode: _courseCodeController.text,
         courseName: _courseNameController.text,
-        location: _locationController.text,
-        dateTime: dateTime,
+        topic: _topicController.text,
         description: _descriptionController.text,
-        createdBy: 'You', // In a real app, this would be the current user's name
+        location: _locationController.text,
+        dateTime: _selectedDateTime,
+        createdBy: widget.appState.userEmail,
+        participants: widget.studyGroup?.participants ?? [widget.appState.userEmail],
         maxParticipants: _maxParticipants,
-        participants: _isEditing ? widget.studyGroup!.participants : ['You'],
-        isJoined: true,
       );
-      
-      if (_isEditing) {
-        // Update existing study group
-        final index = widget.appState.studyGroups.indexWhere((sg) => sg.id == studyGroup.id);
-        if (index != -1) {
-          widget.appState.studyGroups[index] = studyGroup;
+
+      try {
+        await widget.appState.firebaseService.addOrUpdateStudyGroup(studyGroup);
+        if (mounted) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const Center(child: AnimatedCheckmark()),
+          );
+          await Future.delayed(const Duration(milliseconds: 900));
+          if (mounted) Navigator.pop(context); // Dismiss dialog
+          if (mounted) Navigator.pop(context, true);
         }
-      } else {
-        // Add new study group
-        widget.appState.studyGroups.add(studyGroup);
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error saving study group: $e')),
+          );
+        }
       }
-      
-      widget.appState.saveStudyGroups();
-      Navigator.pop(context, true); // Return true to indicate changes were made
     }
   }
   

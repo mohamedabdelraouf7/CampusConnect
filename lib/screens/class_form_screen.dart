@@ -9,11 +9,11 @@ class ClassFormScreen extends StatefulWidget {
   final int? initialDayOfWeek;
   
   const ClassFormScreen({
-    Key? key, 
+    super.key, 
     required this.appState, 
     this.classItem,
     this.initialDayOfWeek,
-  }) : super(key: key);
+  });
 
   @override
   _ClassFormScreenState createState() => _ClassFormScreenState();
@@ -111,10 +111,12 @@ class _ClassFormScreenState extends State<ClassFormScreen> {
     }
   }
   
-  void _saveClass() {
-    if (_formKey.currentState!.validate()) {
-      final classItem = ClassModel(
-        id: _isEditing ? widget.classItem!.id : const Uuid().v4(),
+  Future<void> _saveClass() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      
+      final classModel = ClassModel(
+        id: widget.classItem?.id ?? '',
         name: _nameController.text,
         courseCode: _courseCodeController.text,
         professor: _professorController.text,
@@ -124,20 +126,24 @@ class _ClassFormScreenState extends State<ClassFormScreen> {
         endTime: _endTime,
         notes: _notesController.text,
       );
-      
-      if (_isEditing) {
-        // Update existing class
-        final index = widget.appState.classes.indexWhere((c) => c.id == classItem.id);
-        if (index != -1) {
-          widget.appState.classes[index] = classItem;
+
+      try {
+        if (widget.classItem == null) {
+          await widget.appState.addClass(classModel);
+        } else {
+          await widget.appState.updateClass(classModel);
         }
-      } else {
-        // Add new class
-        widget.appState.classes.add(classItem);
+        
+        if (mounted) {
+          Navigator.pop(context, true);
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error saving class: $e')),
+          );
+        }
       }
-      
-      widget.appState.saveClasses();
-      Navigator.pop(context, true); // Return true to indicate changes were made
     }
   }
   

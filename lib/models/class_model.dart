@@ -82,4 +82,28 @@ class ClassModel {
     final period = time.period == DayPeriod.am ? 'AM' : 'PM';
     return '$hour:$minute $period';
   }
+
+  ClassModel copyWith({
+    String? id,
+    String? name,
+    String? courseCode,
+    String? professor,
+    String? location,
+    int? dayOfWeek,
+    TimeOfDay? startTime,
+    TimeOfDay? endTime,
+    String? notes,
+  }) {
+    return ClassModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      courseCode: courseCode ?? this.courseCode,
+      professor: professor ?? this.professor,
+      location: location ?? this.location,
+      dayOfWeek: dayOfWeek ?? this.dayOfWeek,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      notes: notes ?? this.notes,
+    );
+  }
 }

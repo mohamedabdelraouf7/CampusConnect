@@ -1,0 +1,35 @@
+--------- beginning of kernel
+05-17 00:49:28.096     0     0 I logd    : logdr: UID=2000 GID=2000 PID=4969 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+--------- beginning of main
+05-17 00:49:29.023   915   928 I ndroid.systemui: Background young concurrent copying GC freed 262888(12MB) AllocSpace objects, 0(0B) LOS objects, 34% free, 22MB/34MB, paused 11.845ms,506us total 81.086ms
+05-17 00:49:30.713   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:30.715   915   928 I ndroid.systemui: Background young concurrent copying GC freed 258327(11MB) AllocSpace objects, 0(0B) LOS objects, 34% free, 22MB/34MB, paused 10.140ms,1.917ms total 94.959ms
+05-17 00:49:31.946   915   928 I ndroid.systemui: Background young concurrent copying GC freed 255700(11MB) AllocSpace objects, 0(0B) LOS objects, 34% free, 22MB/34MB, paused 8.196ms,3.289ms total 73.009ms
+05-17 00:49:33.132   915   928 I ndroid.systemui: Background young concurrent copying GC freed 255856(11MB) AllocSpace objects, 0(0B) LOS objects, 33% free, 22MB/34MB, paused 7.355ms,1.180ms total 65.115ms
+05-17 00:49:33.734   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:34.298   915   928 W ndroid.systemui: Suspending all threads took: 6.504ms
+05-17 00:49:34.319   915   928 I ndroid.systemui: Background young concurrent copying GC freed 250074(11MB) AllocSpace objects, 0(0B) LOS objects, 32% free, 23MB/34MB, paused 9.014ms,7.024ms total 105.003ms
+05-17 00:49:35.466   915   928 I ndroid.systemui: Background young concurrent copying GC freed 246300(11MB) AllocSpace objects, 0(0B) LOS objects, 32% free, 23MB/34MB, paused 11.257ms,999us total 76.328ms
+05-17 00:49:35.602   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:49:36.574   915   928 I ndroid.systemui: Background young concurrent copying GC freed 238820(10MB) AllocSpace objects, 1(20KB) LOS objects, 31% free, 23MB/34MB, paused 5.927ms,997us total 46.617ms
+05-17 00:49:36.737   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:37.729   915   928 I ndroid.systemui: Background young concurrent copying GC freed 237789(10MB) AllocSpace objects, 0(0B) LOS objects, 31% free, 23MB/34MB, paused 10.090ms,3.662ms total 99.112ms
+--------- beginning of system
+05-17 00:49:38.020   614  1587 D OomAdjuster: Not killing cached processes
+05-17 00:49:38.783   915   928 I ndroid.systemui: Background young concurrent copying GC freed 233165(10MB) AllocSpace objects, 0(0B) LOS objects, 31% free, 23MB/34MB, paused 7.175ms,1.089ms total 62.918ms
+05-17 00:49:41.527   915   928 I ndroid.systemui: Background young concurrent copying GC freed 225308(10MB) AllocSpace objects, 0(0B) LOS objects, 29% free, 24MB/34MB, paused 6.115ms,1.222ms total 48.521ms
+05-17 00:49:42.914   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:44.585   915   928 I ndroid.systemui: Background young concurrent copying GC freed 210601(9891KB) AllocSpace objects, 0(0B) LOS objects, 27% free, 24MB/34MB, paused 6.014ms,528us total 49.020ms
+05-17 00:49:45.454   915   928 I ndroid.systemui: Background young concurrent copying GC freed 207034(9690KB) AllocSpace objects, 0(0B) LOS objects, 27% free, 24MB/34MB, paused 13.098ms,2.254ms total 69.271ms
+05-17 00:49:45.617   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:49:45.901   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:46.419   915   928 I ndroid.systemui: Background young concurrent copying GC freed 200431(9449KB) AllocSpace objects, 1(20KB) LOS objects, 26% free, 25MB/34MB, paused 16.692ms,711us total 104.547ms
+05-17 00:49:47.265   915   928 I ndroid.systemui: Background young concurrent copying GC freed 200461(9390KB) AllocSpace objects, 0(0B) LOS objects, 25% free, 25MB/34MB, paused 6.176ms,1.541ms total 64.114ms
+05-17 00:49:48.019   915   928 I ndroid.systemui: Background young concurrent copying GC freed 193724(9090KB) AllocSpace objects, 0(0B) LOS objects, 25% free, 25MB/34MB, paused 8.160ms,1.932ms total 68.378ms
+05-17 00:49:48.807   915   928 I ndroid.systemui: WaitForGcToComplete blocked Background on None for 5.364ms
+05-17 00:49:48.876   915   928 I ndroid.systemui: Background young concurrent copying GC freed 193585(9066KB) AllocSpace objects, 0(0B) LOS objects, 25% free, 25MB/34MB, paused 13.646ms,294us total 65.963ms
+05-17 00:49:50.520   915   928 I ndroid.systemui: Background young concurrent copying GC freed 187813(8795KB) AllocSpace objects, 0(0B) LOS objects, 24% free, 25MB/34MB, paused 5.393ms,541us total 56.912ms
+05-17 00:49:51.920   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:49:51.925   915   928 I ndroid.systemui: Background young concurrent copying GC freed 181174(8495KB) AllocSpace objects, 0(0B) LOS objects, 23% free, 26MB/34MB, paused 7.475ms,1.963ms total 57.720ms
+05-17 00:49:52.848   915   928 I ndroid.systemui: Background young concurrent copying GC freed 175156(8224KB) AllocSpace objects, 0(0B) LOS objects, 23% free, 26MB/34MB, paused 11.744ms,1.577ms total 114.082ms
+05-17 00:49:53.727   915   928 I ndroid.systemui: Background young concurrent copying GC freed 169789(7960KB) AllocSpace objects, 0(0B) LOS objects, 23% free, 26MB/34MB, paused 8.964ms,610us total 66.226ms

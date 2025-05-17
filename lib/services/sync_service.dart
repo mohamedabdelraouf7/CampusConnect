@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../utils/database_helper.dart';
 import 'firebase_service.dart';
-import '../models/study_group_model.dart';
-import '../models/event_model.dart';
 
 class SyncService {
   static final SyncService _instance = SyncService._internal();
@@ -20,7 +18,9 @@ class SyncService {
     // Listen for connectivity changes
     _connectivitySubscription = Connectivity()
         .onConnectivityChanged
-        .listen(_updateConnectionStatus);
+        .listen((ConnectivityResult result) {
+          _updateConnectionStatus(result);
+        });
     
     // Check initial connection status
     final connectivityResult = await Connectivity().checkConnectivity();

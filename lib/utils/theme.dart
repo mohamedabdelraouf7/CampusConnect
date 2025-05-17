@@ -13,11 +13,9 @@ class AppTheme {
       primary: primaryGreen,
       secondary: secondaryGreen,
       surface: Colors.white,
-      background: Colors.white,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: Colors.black87,
-      onBackground: Colors.black87,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: primaryGreen,
@@ -67,11 +65,9 @@ class AppTheme {
       primary: primaryGreen,
       secondary: secondaryGreen,
       surface: const Color(0xFF121212),
-      background: const Color(0xFF121212),
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: Colors.white,
-      onBackground: Colors.white,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.black,

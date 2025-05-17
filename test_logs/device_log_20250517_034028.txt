@@ -1,0 +1,387 @@
+--------- beginning of kernel
+05-17 00:40:23.457     0     0 I logd    : logdr: UID=2000 GID=2000 PID=8454 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+--------- beginning of main
+05-17 00:40:25.969   848   848 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:40:26.170   848   864 I ndroid.systemui: Background concurrent copying GC freed 411182(20MB) AllocSpace objects, 1(20KB) LOS objects, 50% free, 17MB/35MB, paused 890us,151us total 133.072ms
+05-17 00:40:27.104   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:40:31.455   393   393 I android.hardware.power-service.example: Power isModeSupported: 8
+05-17 00:40:31.486  1654  1887 I AiAiEcho: Predicting[0]: 
+05-17 00:40:31.487  1654  1887 I AiAiEcho: EchoTargets: 
+05-17 00:40:31.487  1654  1887 I AiAiEcho: Filtered by AiAi flag check: 
+05-17 00:40:31.487  1654  1887 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+05-17 00:40:31.490  1654  1887 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+05-17 00:40:31.503   848   848 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+05-17 00:40:31.533   605   702 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+05-17 00:40:31.546   605   702 D InetDiagMessage: Destroyed 1 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+05-17 00:40:31.547   605   702 D InetDiagMessage: Destroyed live tcp sockets for uids={[10000, 2147483647]} exemptUids={1000, 1001, 1002, 1068, 1073, 2000, 10087, 10089, 10091, 10127, 10128, 10131, 10132, 10166, 10168, 10169, 10178, 10182, 10183, 20087, 20089, 20091, 20127, 20128, 20131, 20132, 20166, 20168, 20169, 20178, 20182, 20183} in 59ms
+05-17 00:40:31.557   363  8459 I resolv  : GetAddrInfoHandler::run: {100 100 100 983140 10194 0}
+05-17 00:40:31.560   363  8460 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+05-17 00:40:31.560   363  8460 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7755e50045b0
+05-17 00:40:31.561   363  8460 I resolv  : doQuery: rcode=0, ancount=1, return value=77
+05-17 00:40:31.561   363  8461 I resolv  : res_nmkquery: (QUERY, IN, A)
+05-17 00:40:31.562   363  8461 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7755a500ec70
+05-17 00:40:31.562   363  8461 I resolv  : doQuery: rcode=0, ancount=4, return value=113
+05-17 00:40:31.566  8364  8458 D TrafficStats: tagSocket(127) with statsTag=0xffffffff, statsUid=-1
+05-17 00:40:35.029   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:40:35.982   848   848 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:40:42.975   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:40:43.980   443   443 W adbd    : timeout expired while flushing socket, closing
+05-17 00:40:44.975     0     0 I init    : Untracked pid 8284 received signal 1
+05-17 00:40:44.976     0     0 I init    : Untracked pid 8284 did not have an associated service entry and will not be reaped
+05-17 00:40:45.143   605   819 D androidtc: Initializing SystemTextClassifier, type = System
+05-17 00:40:45.147  1654  1654 I AiAiTextClassifier: onCreateTextClassificationSession = TextClassificationSessionId {8f2bdc3d-06cf-4349-9a32-f7238e60bd6c}
+05-17 00:40:45.152  1654  2119 I AiAiTranslate: C2T - not in a conversation
+05-17 00:40:45.162   848   848 I ClipboardListener: Clipboard overlay suppressed.
+05-17 00:40:45.174  1654  2333 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+05-17 00:40:45.191   848   848 I ClipboardListener: Clipboard overlay suppressed.
+05-17 00:40:45.200  1654  2333 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+05-17 00:40:46.004   848   848 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:40:50.905   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:40:56.026   848   848 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:40:59.104   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:41:02.188   605   819 D androidtc: Initializing SystemTextClassifier, type = System
+05-17 00:41:02.196  1654  1654 I AiAiTextClassifier: onCreateTextClassificationSession = TextClassificationSessionId {ae73e762-f352-4bcf-bab2-702ca4971d84}
+05-17 00:41:02.210  1654  2119 I AiAiTranslate: C2T - not in a conversation
+05-17 00:41:02.217  1654  2333 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+05-17 00:41:02.218   848   848 I ClipboardListener: Clipboard overlay suppressed.
+05-17 00:41:02.229  1654  2333 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+05-17 00:41:02.234   848   848 I ClipboardListener: Clipboard overlay suppressed.
+05-17 00:41:02.459   363  8471 I resolv  : GetAddrInfoHandler::run: {100 100 100 983140 10194 0}
+05-17 00:41:02.461   363  8473 I resolv  : res_nmkquery: (QUERY, IN, A)
+05-17 00:41:02.461   363  8472 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+05-17 00:41:02.461   363  8473 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7755a500ec70
+05-17 00:41:02.462   363  8472 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0x7755e50045b0
+05-17 00:41:02.462   363  8473 I resolv  : doQuery: rcode=0, ancount=4, return value=113
+05-17 00:41:02.464   363  8472 I resolv  : doQuery: rcode=0, ancount=1, return value=77
+05-17 00:41:02.471  8364  8470 D TrafficStats: tagSocket(98) with statsTag=0xffffffff, statsUid=-1
+05-17 00:41:06.010   848   848 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:41:07.037   831   831 I wpa_supplicant: wlan0: CTRL-EVENT-BEACON-LOSS 
+05-17 00:41:08.236   848   864 I ndroid.systemui: Background concurrent copying GC freed 402214(18MB) AllocSpace objects, 0(0B) LOS objects, 49% free, 17MB/35MB, paused 1.689ms,621us total 111.073ms
+--------- beginning of system
+05-17 00:41:08.595   605   635 D CompatibilityChangeReporter: Compat change id reported: 173031413; UID 1000; state: ENABLED
+05-17 00:41:08.602   605   724 I PowerGroup: Waking up power group from Asleep (groupId=0, uid=1000, reason=WAKE_REASON_POWER_BUTTON, details=android.policy:POWER)...
+05-17 00:41:08.616   605   724 I PowerManagerService: Waking up from Asleep (uid=1000, reason=WAKE_REASON_POWER_BUTTON, details=android.policy:POWER)...
+05-17 00:41:08.631   605   605 E ActivityManager: Cancel pending or running compactions as system is awake
+05-17 00:41:08.638   605   724 W InputDispatcher: Excessive delay in interceptKeyBeforeQueueing; took 67 ms
+05-17 00:41:08.655   605   664 I DisplayPowerController2[0]: Blocking screen on until initial contents have been drawn.
+05-17 00:41:08.660   605   664 D ActivityTaskManager: Top Process State changed to PROCESS_STATE_TOP
+05-17 00:41:08.700   605   664 E ActivityTaskManager: setVisibility=true while transition is not collecting or finishing ActivityRecord{9d845ec u0 com.example.campusconnect/.MainActivity t34} caller=com.android.server.wm.ActivityRecord.setVisibility:5287 com.android.server.wm.TaskFragment.resumeTopActivity:1393 com.android.server.wm.Task.resumeTopActivityInnerLocked:5044 com.android.server.wm.Task.resumeTopActivityUncheckedLocked:4974 com.android.server.wm.Task.resumeTopActivityUncheckedLocked:5025 com.android.server.wm.RootWindowContainer.lambda$applySleepTokens$20:2428 com.android.server.wm.RootWindowContainer.$r8$lambda$9xL80GDJRExKql35hTmQVg_ieD8:0 com.android.server.wm.RootWindowContainer$$ExternalSyntheticLambda10.accept:0 
+05-17 00:41:08.713   605   605 I ActivityManager: updateOomAdj start time is before than pendingPid added, don't delete it
+05-17 00:41:08.733   605   635 I SideFpsEventHandler: notifyPowerPressed
+05-17 00:41:08.734   605   635 D WindowManager: powerPress: eventTime=5079509 interactive=true count=1 beganFromNonInteractive=true mShortPressOnPowerBehavior=1
+05-17 00:41:08.734     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=4 c=900000 fc=3000000 cc=10 chg=
+05-17 00:41:08.779   605   664 I DisplayBrightnessStrategySelector: Changing the DisplayBrightnessStrategy from ScreenOffBrightnessStrategy toInvalidBrightnessStrategy for display 0
+05-17 00:41:08.793   605   664 V DisplayPowerController2[0]: Brightness [0.39763778] reason changing to: 'manual', previous reason: 'screen_off'.
+05-17 00:41:08.794   605   664 I DisplayPowerController2[0]: BrightnessEvent: disp=0, physDisp=local:4619827259835644672, brt=0.39763778, initBrt=0.0, rcmdBrt=NaN, preBrt=NaN, lux=0.0, preLux=0.0, hbmMax=1.0, hbmMode=off, rbcStrength=0, thrmMax=1.0, powerFactor=1.0, wasShortTermModelActive=false, flags=, reason=manual, autoBrightness=false, strategy=InvalidBrightnessStrategy
+05-17 00:41:08.822   420   420 D SurfaceFlinger: Setting power mode 2 on display 4619827259835644672
+05-17 00:41:08.824   605   637 I DisplayDeviceRepository: Display device changed state: "Built-in Screen", ON
+05-17 00:41:08.839   605   955 I DisplayDevice: [0] Layerstack set to 0 for local:4619827259835644672
+05-17 00:41:08.841   605   637 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: true
+05-17 00:41:08.846   605   724 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+05-17 00:41:08.890   420   420 D SurfaceFlinger: Finished setting power mode 2 on display 4619827259835644672
+05-17 00:41:08.911  1409  1409 I NearbyDiscovery: FastPairDisplayObserver: STATE_OFF -> STATE_ON [CONTEXT service_id=265 ]
+05-17 00:41:08.919   605   823 D SurfaceControl: Excessive delay in setPowerMode()
+05-17 00:41:08.934   605   637 I DisplayDeviceRepository: Display device changed state: "Built-in Screen", ON
+05-17 00:41:08.944   605   637 D DisplayManagerService: Ignore redundant display event 0/2 to 10177/1426
+05-17 00:41:08.955   605   654 D BatteryStatsImpl: Reading cpu stats took 180ms
+05-17 00:41:08.961   390   433 E RanchuHwc: getLayer Unknown layer:99
+05-17 00:41:08.962   390   433 E RanchuHwc: getLayer Unknown layer:98
+05-17 00:41:08.976   420   420 E HWComposer: getDeviceCompositionChanges: presentOrValidate failed for display 4619827259835644672: BadLayer (3)
+05-17 00:41:08.977   420   420 E CompositionEngine: chooseCompositionStrategy failed for EMU_display_0: -2147483648 (Unknown error -2147483648)
+05-17 00:41:08.982  1409  1529 I NearbySharing: Screen is unlocked [CONTEXT service_id=194 ]
+05-17 00:41:08.992  1409  1529 I NearbySharing: Stopping scanning because Nearby Sharing is disabled. [CONTEXT service_id=194 ]
+05-17 00:41:08.992  1409  1529 I NearbySharing: Failed to stop scanning because we're not scanning. [CONTEXT service_id=194 ]
+05-17 00:41:08.995  1409  1529 I NearbySharing: Can't stop advertising FastInitiation. Not advertising. [CONTEXT service_id=194 ]
+05-17 00:41:08.995  1409  1529 I NearbySharing: Stopping Fast Init advertisement because we're not scanning in the foreground. [CONTEXT service_id=194 ]
+05-17 00:41:08.996  1409  1529 I NearbySharing: Stopping advertising because Nearby Sharing is disabled. [CONTEXT service_id=194 ]
+05-17 00:41:09.004   848  1050 W Looper  : Drained
+05-17 00:41:09.008   848   897 W Looper  : Slow delivery took 76ms wmshell.main h=android.os.Handler c=android.hardware.display.DisplayManagerGlobal$DisplayListenerDelegate$$ExternalSyntheticLambda0@90a478 m=0
+05-17 00:41:09.022   605   653 W system_server: Long monitor contention with owner batterystats-worker (654) at void com.android.server.power.stats.BatteryExternalStatsWorker.updateExternalStatsLocked(java.lang.String, int, boolean, boolean, int, int[], boolean)(BatteryExternalStatsWorker.java:755) waiters=0 in void com.android.server.am.BatteryStatsService.lambda$updateBatteryStatsOnActivityUsage$100(boolean, int, long, long) for 206ms
+05-17 00:41:09.040   605   724 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.043   605   724 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.052  1409  3288 I NearbyDiscovery: FastPairScanner: isScreenOn=true, scanWithScreenOff=false, isLocationEnabled=true, disableLocationRequirement=true, isDiscoveryScanningEnabled=true, during24GhzWifiWarmingUpPeriod=false [CONTEXT service_id=265 ]
+05-17 00:41:09.052   605   724 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.052   605   724 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.053   605   724 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.054   605   724 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.054  1409  3288 D BluetoothAdapter: isLeEnabled(): ON
+05-17 00:41:09.119   605   724 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.119   605   724 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.119   605   724 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.120   605   724 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+05-17 00:41:09.122  1409  3288 I NearbyDiscovery: FastPairScanner: eventType=SCREEN_ON_FROM_DISPLAY_OBSERVER, intReq=false, scanning=false, scanAllowed=true, bleEnabled=true, bleScanAvailable=false, lockScanRate=false, startScanningByLowPowerMode=false [CONTEXT service_id=265 ]
+05-17 00:41:09.123   605   724 I InputReader: Device reconfigured: id=4, name='virtio_input_multi_touch_1', size 1440x3120, orientation 0, mode 1, display id 0
+05-17 00:41:09.131  8364  8385 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+05-17 00:41:09.131  1409  1529 I NearbySharing: Starting scanning for Fast Initiation. [CONTEXT service_id=194 ]
+05-17 00:41:09.132  8364  8385 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+05-17 00:41:09.138  1409  1529 D BluetoothAdapter: isLeEnabled(): ON
+05-17 00:41:09.149  1409  3288 I NearbyDiscovery: FastPairScanner: isScreenOn=true, scanWithScreenOff=false, isLocationEnabled=true, disableLocationRequirement=true, isDiscoveryScanningEnabled=true, during24GhzWifiWarmingUpPeriod=false [CONTEXT service_id=265 ]
+05-17 00:41:09.150  1409  3288 I NearbyDiscovery: FastPairScanner: Start scanning internally in LOW_LATENCY_SCANNING [CONTEXT service_id=265 ]
+05-17 00:41:09.154  1409  3288 D BluetoothAdapter: isLeEnabled(): ON
+05-17 00:41:09.297  6858  6952 D BtGatt.GattService: registerScanner() - UUID=57e21357-6751-4d72-974e-fc2a71469d81
+05-17 00:41:09.320  6858  6952 I bt_stack: [INFO:le_scanning_manager.cc(155)] RegisterScanner in shim layer
+05-17 00:41:09.371     0     0 I servicemanager: Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+05-17 00:41:09.438  6858  6904 D BtGatt.ScanManager: handleScreenOn()
+05-17 00:41:09.468   605   605 W Looper  : Slow dispatch took 607ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@ea8debc m=0
+05-17 00:41:09.471  6858  6892 D BtGatt.GattService: onScannerRegistered() - UUID=57e21357-6751-4d72-974e-fc2a71469d81, scannerId=1, status=0
+05-17 00:41:09.490  6858  6953 D BtGatt.GattService: registerScanner() - UUID=b691ea17-6fd1-4dd9-8530-90c0a62ba510
+05-17 00:41:09.490  1409  1425 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=1 mScannerId=0
+05-17 00:41:09.496   605   605 W Looper  : Slow delivery took 628ms main h=android.os.Handler c=android.hardware.display.DisplayManagerGlobal$DisplayListenerDelegate$$ExternalSyntheticLambda0@32c4e45 m=0
+05-17 00:41:09.505  6858  6953 I bt_stack: [INFO:le_scanning_manager.cc(155)] RegisterScanner in shim layer
+05-17 00:41:09.513  6858  6892 D BtGatt.GattService: onScannerRegistered() - UUID=b691ea17-6fd1-4dd9-8530-90c0a62ba510, scannerId=2, status=0
+05-17 00:41:09.514  1409  1543 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=2 mScannerId=0
+05-17 00:41:09.541  6858  6953 D BtGatt.GattService: start scan with filters
+05-17 00:41:09.592  6858  6953 D BtGatt.GattService: enforcePrivilegedPermissionIfNeeded([BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fe2c-0000-1000-8000-00805f9b34fb, mServiceData=[-4, 18, -114], mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mTransportBlockFilter=null], BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=0000fe2c-0000-1000-8000-00805f9b34fb, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=null, mServiceData=null, mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=9, mAdvertisingData=[95, 66, 75, 79, 0], mAdvertisingDataMask=[-1, -1, -1, -1, 0], mTransportBlockFilter=null]])
+05-17 00:41:09.627   848   914 D StylusManager: Stylus InputDevice changed: 4 virtio_input_multi_touch_1
+05-17 00:41:09.675   848   848 I Choreographer: Skipped 58 frames!  The application may be doing too much work on its main thread.
+05-17 00:41:09.790   605   635 W WindowManager: Keyguard drawn timeout. Setting mKeyguardDrawComplete
+05-17 00:41:09.851   848   897 W Looper  : Drained
+05-17 00:41:09.881   848   917 D EGL_emulation: app_time_stats: avg=2515398.25ms min=198.52ms max=5030598.00ms count=2
+05-17 00:41:09.903   605   605 W Looper  : Slow dispatch took 355ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@814899a m=0
+05-17 00:41:09.903   848  1080 I Choreographer: Skipped 47 frames!  The application may be doing too much work on its main thread.
+05-17 00:41:09.911   605   605 W Looper  : Drained
+05-17 00:41:09.922   605   605 D FastPairService: onReceive: ACTION_SCREEN_ON
+05-17 00:41:09.924   605   605 V FastPairService: invalidateScan: scan is disabled
+05-17 00:41:09.927   605   605 E NearbyManager: Cannot stop scan with this callback because it is never registered.
+05-17 00:41:09.962  6858  6953 D BtGatt.ScanManager: startScan()  [ScanClient scanModeApp -1 scanModeUsed -1 [appScanStats com.google.uid.shared:10128]]
+05-17 00:41:09.965  6858  6904 D BtGatt.ScanManager: handling starting scan
+05-17 00:41:09.977   499   499 W libgoldfish-rild: Multi-element reporting criteria are not supported with HIDL HAL
+05-17 00:41:09.981  6858  6953 D ActivityAttributionService: notifyActivityAttributionInfo UID=1002 packageName=com.google.android.bluetooth deviceAddress=no_active_device_address
+05-17 00:41:09.920   166   166 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+05-17 00:41:09.992  6858  6953 I bt_btif : packages/modules/Bluetooth/system/btif/src/bluetooth.cc:829 get_profile_interface: get_profile_interface: id = activity_attribution
+05-17 00:41:09.993  8364  8393 I Gralloc4: mapper 4.x is not supported
+05-17 00:41:10.044  6858  6953 D BtGatt.GattService: start scan with filters
+05-17 00:41:10.050  6858  6953 D BtGatt.GattService: enforcePrivilegedPermissionIfNeeded([BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fff6-0000-1000-8000-00805f9b34fb, mServiceData=[0], mServiceDataMask=[0], mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mTransportBlockFilter=null], BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fe2c-0000-1000-8000-00805f9b34fb, mServiceData=[0], mServiceDataMask=[0], mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mTransportBlockFilter=null]])
+05-17 00:41:10.052  1409  1529 I NearbySharing: Started scanning for FastInitiation with mode: SCAN_MODE_OPPORTUNISTIC [CONTEXT service_id=194 ]
+05-17 00:41:10.075  6858  6953 D BtGatt.ScanManager: startScan()  [ScanClient scanModeApp 2 scanModeUsed 2 [appScanStats com.google.uid.shared:10128]]
+05-17 00:41:10.078  6858  6904 D BtGatt.ScanManager: handling starting scan
+05-17 00:41:10.081  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(268)] ScanFilterEnable in shim layer
+05-17 00:41:10.103  6858  6892 D BtGatt.GattService: onScanFilterEnableDisabled() - clientIf=2, status=0, action=1
+05-17 00:41:10.103  6858  6892 D BtGatt.ScanManager: callback done for scannerId - 2 status - 0
+05-17 00:41:10.115  6858  6953 D ActivityAttributionService: notifyActivityAttributionInfo UID=1002 packageName=com.google.android.bluetooth deviceAddress=no_active_device_address
+05-17 00:41:10.115  6858  6953 I bt_btif : packages/modules/Bluetooth/system/btif/src/bluetooth.cc:829 get_profile_interface: get_profile_interface: id = activity_attribution
+05-17 00:41:10.119  1409  3288 I NearbyDiscovery: FastPairScanner: Starting LOW_LATENCY_SCANNING scan for 6 seconds [CONTEXT service_id=265 ]
+05-17 00:41:10.132   848   917 D EGL_emulation: app_time_stats: avg=5030996.50ms min=5030996.50ms max=5030996.50ms count=1
+05-17 00:41:10.137  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(243)] ScanFilterAdd in shim layer
+05-17 00:41:10.139   605   634 W Looper  : Slow dispatch took 205ms android.fg h=android.os.Handler c=com.android.server.am.SameProcessApplicationThread$$ExternalSyntheticLambda1@5a1a566 m=0
+05-17 00:41:10.193  6858  6892 D BtGatt.GattService: onScanFilterConfig() - clientIf=2, action = 0 status = 0, filterType=0, availableSpace=0
+05-17 00:41:10.193  1409  1529 I NearbySharing: Fast Initiation Scanning has started [CONTEXT service_id=194 ]
+05-17 00:41:10.195  6858  6892 D BtGatt.ScanManager: callback done for scannerId - 2 status - 0
+05-17 00:41:10.196  6858  6904 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0
+05-17 00:41:10.211  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(204)] ScanFilterParamSetup in shim layer
+05-17 00:41:10.216  6858  6892 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=2, status=0, action=0, availableSpace=0
+05-17 00:41:10.217  6858  6892 D BtGatt.ScanManager: callback done for scannerId - 2 status - 0
+05-17 00:41:10.218  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(243)] ScanFilterAdd in shim layer
+05-17 00:41:10.221  6858  6892 D BtGatt.GattService: onScanFilterConfig() - clientIf=2, action = 0 status = 0, filterType=0, availableSpace=0
+05-17 00:41:10.222  6858  6892 D BtGatt.ScanManager: callback done for scannerId - 2 status - 0
+05-17 00:41:10.223   848  2027 I OpenGLRenderer: Davey! duration=758ms; Flags=0, FrameTimelineVsyncId=1980929, IntendedVsync=5080025557382, Vsync=5080025557382, InputEventId=0, HandleInputStart=5080029366300, AnimationStart=5080029405700, PerformTraversalsStart=5080029486600, DrawStart=5080525449500, FrameDeadline=5080042224048, FrameInterval=5080029345500, FrameStartTime=16666666, SyncQueued=5080539280200, SyncStart=5080843126400, IssueDrawCommandsStart=5080873533700, SwapBuffers=5080974836100, FrameCompleted=5081087936500, DequeueBufferDuration=129400, QueueBufferDuration=91913500, GpuCompleted=5081087243900, SwapBuffersCompleted=5081087936500, DisplayPresentTime=0, CommandSubmissionCompleted=5080974836100, 
+05-17 00:41:10.226  6858  6904 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0
+05-17 00:41:10.228  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(204)] ScanFilterParamSetup in shim layer
+05-17 00:41:10.231  6858  6892 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=2, status=0, action=0, availableSpace=0
+05-17 00:41:10.232  6858  6892 D BtGatt.ScanManager: callback done for scannerId - 2 status - 0
+05-17 00:41:10.233  6858  6904 D BtGatt.ScanManager: start gattClientScanNative from startRegularScan()
+05-17 00:41:10.233  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(168)] Scan in shim layer started
+05-17 00:41:10.310  1560  8476 I DeviceStatusMonitor: DeviceStatusMonitor.handleBroadcast():122 onReceive() : Action = android.intent.action.SCREEN_ON
+05-17 00:41:10.314  1409  3288 I NearbyDiscovery: FastPairHandler: Received action android.intent.action.SCREEN_ON [CONTEXT service_id=265 ]
+05-17 00:41:10.317  1409  3288 I NearbyDiscovery: FastPairScanner: isScreenOn=true, scanWithScreenOff=false, isLocationEnabled=true, disableLocationRequirement=true, isDiscoveryScanningEnabled=true, during24GhzWifiWarmingUpPeriod=false [CONTEXT service_id=265 ]
+05-17 00:41:10.328  1409  1529 I NearbySharing: Dismissing HUN as there's no device nearby. [CONTEXT service_id=194 ]
+05-17 00:41:10.329  8364  8385 E OpenGLRenderer: Unable to match the desired swap behavior.
+05-17 00:41:10.330  1409  1529 I NearbySharing: Cancelling in use notification [CONTEXT service_id=194 ]
+05-17 00:41:10.334  1409  1529 I NearbySharing: Screen is already unlocked, skipping invalidate [CONTEXT service_id=194 ]
+05-17 00:41:10.338   848   848 D CentralSurfaces: mShouldDelayWakeUpAnimation CLEARED
+05-17 00:41:10.344  8364  8393 E libEGL  : called unimplemented OpenGL ES API
+05-17 00:41:10.347  1409  4403 I NearbySharing: Screen is already unlocked, skipping invalidate [CONTEXT service_id=194 ]
+05-17 00:41:10.349  6858  6904 D BtGatt.ScanManager: configureRegularScanParams() - queue=2
+05-17 00:41:10.363  1560  8476 I DeviceStatusMonitor: DeviceStatusMonitor.updateCountryInfo():138 updateCountryInfo(), notifyAnyway = false
+05-17 00:41:10.430  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(168)] Scan in shim layer stopped
+05-17 00:41:10.443  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_scanning_manager.cc:588 stop_scan: Scanning already stopped, return!
+05-17 00:41:10.455  6858  6904 D BtGatt.ScanManager: Start gattClientScanNative with old scanMode -1 new scanMode 2 ( in MS: 100 / 100, in scan unit: 160 / 160 ) [ScanClient scanModeApp 2 scanModeUsed 2 [appScanStats com.google.uid.shared:10128]]
+05-17 00:41:10.460  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(346)] SetScanParameters in shim layer
+05-17 00:41:10.460  6858  6904 I bt_stack: [INFO:le_scanning_manager.cc(168)] Scan in shim layer started
+05-17 00:41:10.470  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:175 register_client: Scheduled address rotation for first client registered
+05-17 00:41:10.471  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:178 register_client: Client registered
+05-17 00:41:10.474   848   848 D CentralSurfaces: updateQsExpansionEnabled - QS Expand enabled: true
+05-17 00:41:10.480  1409  3288 D BluetoothAdapter: isLeEnabled(): ON
+05-17 00:41:10.481  1409  3288 I NearbyDiscovery: FastPairScanner: eventType=SCREEN_ON, intReq=false, scanning=true, scanAllowed=true, bleEnabled=true, bleScanAvailable=false, lockScanRate=false, startScanningByLowPowerMode=false [CONTEXT service_id=265 ]
+05-17 00:41:10.506  6858  6904 D BtGatt.ScanManager: apply scan timeout (300000)to scannerId 2
+05-17 00:41:10.534  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:193 unregister_client: Client unregistered
+05-17 00:41:10.534  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:197 unregister_client: Cancelled address rotation alarm
+05-17 00:41:10.534  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_scanning_manager.cc:588 stop_scan: Scanning already stopped, return!
+05-17 00:41:10.535  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:175 register_client: Scheduled address rotation for first client registered
+05-17 00:41:10.535  6858  6888 I bluetooth: packages/modules/Bluetooth/system/gd/hci/le_address_manager.cc:178 register_client: Client registered
+05-17 00:41:10.547  6858  6892 D BtGatt.GattService: onScanParamSetupCompleted : 0
+05-17 00:41:10.575  1654  1887 I AiAiEcho: Predicting[0]: 
+05-17 00:41:10.584  1654  1887 I AiAiEcho: EchoTargets: 
+05-17 00:41:10.584  1654  1887 I AiAiEcho: Filtered by AiAi flag check: 
+05-17 00:41:10.587  1654  1887 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+05-17 00:41:10.593  1654  1887 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+05-17 00:41:10.718   848   848 I Choreographer: Skipped 61 frames!  The application may be doing too much work on its main thread.
+05-17 00:41:10.753  1409  1529 I NearbySharing: Screen is already unlocked, skipping invalidate [CONTEXT service_id=194 ]
+05-17 00:41:10.765  6858  6883 E bt_btu_hcif: packages/modules/Bluetooth/system/stack/btu/btu_hcif.cc:182 btu_hcif_log_event_metrics: Unexpectedly received event_code:0x10 that should not be handled here
+05-17 00:41:10.769  6858  6883 E bt_btu_hcif: packages/modules/Bluetooth/system/stack/btu/btu_hcif.cc:1375 btu_hcif_hardware_error_evt: UNHANDLED Ctlr H/w error event - code:0x42
+05-17 00:41:10.772  6858  6883 E bt_btif : packages/modules/Bluetooth/system/main/bte_logmsg.cc:105 LogMsg: Received H/W Error. 
+05-17 00:41:10.817  1675  1675 I GsaVoiceInteractionSrv: O received Intent { act=android.intent.action.USER_PRESENT flg=0x24200010 }
+05-17 00:41:10.825   605   637 W WindowManager: Timeout waiting for drawn: undrawn=[Window{e75e2a6 u0 com.example.campusconnect/com.example.campusconnect.MainActivity}]
+05-17 00:41:10.835   605   664 I DisplayPowerController2[0]: Unblocked screen on after 2179 ms
+05-17 00:41:10.856   605  2556 W system_server: Long monitor contention with owner ActivityManager (647) at void com.android.server.am.BroadcastQueueModernImpl.checkPendingColdStartValidity()(BroadcastQueueModernImpl.java:551) waiters=0 in android.content.ComponentName com.android.server.am.ActivityManagerService.startService(android.app.IApplicationThread, android.content.Intent, java.lang.String, boolean, java.lang.String, java.lang.String, int, boolean, int, java.lang.String, java.lang.String) for 129ms
+05-17 00:41:10.942  1409  3080 W .gms.persistent: Long monitor contention with owner lowpool[63] (8362) at boolean android.os.MessageQueue.enqueueMessage(android.os.Message, long)(MessageQueue.java:600) waiters=0 in android.os.Message android.os.MessageQueue.next() for 209ms
+05-17 00:41:10.971   605   960 W ProcessStats: Tracking association SourceState{44da92b com.google.android.googlequicksearchbox:interactor/10132 BFgs #8847} whose proc state 4 is better than process ProcessState{7ea2895 com.google.android.googlequicksearchbox:search/10132 pkg=com.google.android.googlequicksearchbox} proc state 6 (40 skipped)
+05-17 00:41:11.015   605   664 W PowerManagerService: Screen on took 2461 ms
+05-17 00:41:11.032   605   605 W Looper  : Slow dispatch took 272ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@a666531 m=0
+05-17 00:41:11.088   848   917 D EGL_emulation: app_time_stats: avg=170743.64ms min=234.56ms max=341252.75ms count=2
+05-17 00:41:11.108   848  8479 I OpenGLRenderer: Davey! duration=1362ms; Flags=0, FrameTimelineVsyncId=1980987, IntendedVsync=5080642224024, Vsync=5081658890650, InputEventId=0, HandleInputStart=5081673991600, AnimationStart=5081674039100, PerformTraversalsStart=5081725155100, DrawStart=5081726731200, FrameDeadline=5080658890690, FrameInterval=5081672903400, FrameStartTime=16666666, SyncQueued=5081731499700, SyncStart=5081773362300, IssueDrawCommandsStart=5081813380700, SwapBuffers=5081993933200, FrameCompleted=5082046797800, DequeueBufferDuration=193600, QueueBufferDuration=32388400, GpuCompleted=5082041131300, SwapBuffersCompleted=5082046797800, DisplayPresentTime=0, CommandSubmissionCompleted=5081993933200, 
+05-17 00:41:11.119   605   960 D ActivityManager: sync unfroze 1833 com.google.android.gms for 6
+05-17 00:41:11.158   605   605 W Looper  : Slow delivery took 300ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@bbd1197 m=0
+05-17 00:41:11.176   605   605 W Looper  : Slow dispatch took 122ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ReceiverDispatcher$Args$$ExternalSyntheticLambda0@bbd1197 m=0
+05-17 00:41:11.270   605  1730 D WifiNl80211Manager: Scan result ready event
+05-17 00:41:11.274   605  1730 D WifiNative: Scan result ready event
+05-17 00:41:11.280   605   605 W Looper  : Drained
+05-17 00:41:11.349  8364  8393 E libEGL  : called unimplemented OpenGL ES API
+05-17 00:41:11.381  1409  1409 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.cast.firstparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+05-17 00:41:11.384  1409  1409 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.cast.firstparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+05-17 00:41:11.496  1675  2388 I A       : Disconnecting from SysUi, flag disabled [IVR]
+05-17 00:41:11.497  1675  2388 I A       : Disconnecting from SysUi, eligibilityNotifier absent [IVR]
+05-17 00:41:11.540  1675  2388 I A       : Disconnecting from SysUi, VM not enabled [IVR]
+05-17 00:41:11.667   605   790 W system_server: Long monitor contention with owner appscheduling.default (702) at void com.android.server.job.JobSchedulerService$JobHandler.handleMessage(android.os.Message)(JobSchedulerService.java:3305) waiters=0 in void com.android.server.job.controllers.ConnectivityController$2.onCapabilitiesChanged(android.net.Network, android.net.NetworkCapabilities) for 321ms
+05-17 00:41:11.704  1906  2568 W earchbox:search: Long monitor contention with owner CronetInit (3087) at void android.net.ConnectivityManager$CallbackHandler.handleMessage(android.os.Message)(ConnectivityManager.java:4250) waiters=0 in void android.net.ConnectivityManager$CallbackHandler.handleMessage(android.os.Message) for 128ms
+05-17 00:41:11.725  1675  2388 I A       : No binding to unbind [IVR]
+05-17 00:41:11.725  1675  2388 I A       : Disconnected from SysUi [IVR]
+05-17 00:41:11.755  1833  1833 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.auth.cryptauth.cryptauthservice.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+05-17 00:41:11.755  1833  1833 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.auth.cryptauth.cryptauthservice.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+05-17 00:41:11.820   605  1730 D BiometricService: canAuthenticate: User=0, Caller=0, Authenticators=255
+05-17 00:41:11.908   605  1730 D BiometricService/PreAuthInfo: Package: com.google.android.gms Sensor ID: 4 Modality: 8 Status: 7
+05-17 00:41:11.931   605   624 I ActivityManager: Process com.google.android.bluetooth (pid 6858) has died: psvc PER 
+05-17 00:41:11.909     0     0 I binder  : undelivered transaction 802363, process died.
+05-17 00:41:11.942   605   964 W AS.PlaybackActivityMon: client died
+05-17 00:41:11.946   605  2015 W AS.PlaybackActivityMon: client died
+05-17 00:41:11.952   605   701 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.a2dp.A2dpService} died.
+05-17 00:41:11.953   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:11.953   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:11.958   605  1731 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.hid.HidHostService} died.
+05-17 00:41:11.961   605  1731 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.hfp.HeadsetService} died.
+05-17 00:41:11.963   605   605 D BluetoothManagerService: BluetoothServiceConnection, disconnected: com.android.bluetooth.gatt.GattService
+05-17 00:41:11.963   605   605 D BluetoothManagerService: BluetoothServiceConnection, disconnected: com.android.bluetooth.btservice.AdapterService
+05-17 00:41:11.964   848  8474 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:11.964   848  8474 D BluetoothHeadset: Unbinding service...
+05-17 00:41:11.966   848  1002 D BluetoothPan: Proxy object disconnected
+05-17 00:41:11.967   848  1002 D BluetoothPan: Unbinding service...
+05-17 00:41:11.968   605   686 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.hearingaid.HearingAidService} died.
+05-17 00:41:11.968   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.968   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:11.968   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.968   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:11.968   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.969   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:11.969   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.969   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:11.986   848  8479 D BluetoothHidHost: Proxy object disconnected
+05-17 00:41:11.986   848  8479 D BluetoothHidHost: Unbinding service...
+05-17 00:41:11.990   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.990   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:11.993   848  5318 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:11.993   848  5318 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:12.035   848  8479 D BluetoothHidHost: Proxy object disconnected
+05-17 00:41:12.036   848  5318 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:12.036   605  1938 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.pbap.BluetoothPbapService} died.
+05-17 00:41:12.037   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:12.038   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:12.038   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:12.039   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:12.040   605   686 D BluetoothHearingAid: Proxy object disconnected
+05-17 00:41:12.040   605   686 D BluetoothHearingAid: Unbinding service...
+05-17 00:41:12.041   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.042   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.043   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.043   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.043   848  2027 D BluetoothPbap: Proxy object disconnected
+05-17 00:41:12.043   848  2027 D BluetoothPbap: Unbinding service...
+05-17 00:41:12.043   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.043   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.044   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.044   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.044   605   701 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.045   605   701 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.045   848  5318 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.046   848  5318 D BluetoothA2dp: Unbinding service...
+05-17 00:41:12.048   848  8479 D BluetoothHidDevice: Proxy object disconnected
+05-17 00:41:12.048   848  8479 D BluetoothHidDevice: Unbinding service...
+05-17 00:41:12.049   848  1237 D BluetoothPbap: Proxy object disconnected
+05-17 00:41:12.049   848   872 D BluetoothMap: Proxy object disconnected
+05-17 00:41:12.049   848   872 D BluetoothMap: Unbinding service...
+05-17 00:41:12.054   848  8479 D BluetoothHidDevice: Proxy object disconnected
+05-17 00:41:12.056   848  8474 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.057   848  1002 D BluetoothPan: Proxy object disconnected
+05-17 00:41:12.060   848  5318 D BluetoothA2dp: Proxy object disconnected
+05-17 00:41:12.085   364   364 I Zygote  : Process 6858 exited due to signal 9 (Killed)
+05-17 00:41:12.088  1409  2945 W .gms.persistent: Long monitor contention with owner GoogleApiHandler (1525) at android.net.NetworkRequest android.net.ConnectivityManager.sendRequestForNetwork(int, android.net.NetworkCapabilities, android.net.ConnectivityManager$NetworkCallback, int, android.net.NetworkRequest$Type, int, android.net.ConnectivityManager$CallbackHandler)(ConnectivityManager.java:4353) waiters=0 in void android.net.ConnectivityManager$CallbackHandler.handleMessage(android.os.Message) for 174ms
+05-17 00:41:12.089   605   624 W ActivityManager: Scheduling restart of crashed service com.google.android.bluetooth/com.android.bluetooth.gatt.GattService in 1000ms for connection
+05-17 00:41:12.090   605   624 W ActivityManager: Scheduling restart of crashed service com.google.android.bluetooth/com.android.bluetooth.btservice.AdapterService in 10974ms for connection
+05-17 00:41:12.091   605  1737 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.map.BluetoothMapService} died.
+05-17 00:41:12.091   605   912 W BluetoothManagerService: Profile service for profile: null died.
+05-17 00:41:12.092   605   635 D DisplayManagerService: Drop pending events for gone uid 1002
+05-17 00:41:12.092   605  1730 D BiometricService/PreAuthInfo: Package: com.google.android.gms Sensor ID: 0 Modality: 2 Status: 7
+05-17 00:41:12.096   848   872 D BluetoothMap: Proxy object disconnected
+05-17 00:41:12.097   848   914 W Looper  : Slow delivery took 1013ms SysUiBg h=com.android.systemui.qs.tileimpl.QSTileImpl$H c=null m=5
+05-17 00:41:12.118   605  2015 I MediaSessionStack: removeSession | record: com.google.android.bluetooth/BluetoothMediaBrowserService (userId=0)
+05-17 00:41:12.119   605  2574 W BluetoothManagerService: Profile service for profile: ComponentInfo{com.google.android.bluetooth/com.android.bluetooth.hid.HidDeviceService} died.
+05-17 00:41:12.120   605  1731 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.127   605  1731 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.129   605  1731 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.132   605  1731 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.135   605   726 E BluetoothManagerService: MESSAGE_BLUETOOTH_SERVICE_DISCONNECTED(2)
+05-17 00:41:12.136   605  1730 D BiometricService/PreAuthInfo: getCanAuthenticateInternal Modality: 8 AuthenticatorStatus: 7
+05-17 00:41:12.147   605  1730 D AuthService: canAuthenticate, userId: 0, callingUserId: 0, authenticators: 255, result: 11
+05-17 00:41:12.152   605   768 D ConnectivityService: NetReassign [no changes] [c 5] [a 11] [i 219]
+05-17 00:41:12.152   605  1932 W system_server: Long monitor contention with owner binder:605_19 (2015) at void com.android.server.media.MediaSessionService.onSessionDied(com.android.server.media.MediaSessionRecordImpl)(MediaSessionService.java:437) waiters=1 in void com.android.server.media.MediaSessionService.onSessionDied(com.android.server.media.MediaSessionRecordImpl) for 156ms
+05-17 00:41:12.153   605  1932 I MediaSessionStack: removeSession | record: com.google.android.bluetooth/BluetoothMediaBrowserService (userId=0)
+05-17 00:41:12.154   605  1731 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.154   605  1731 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.155   605  1731 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.156   605  1731 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.167   605   605 I Telecom : BluetoothDeviceManager: clearHearingAidCommunicationDevice: mHearingAidSetAsCommunicationDevice = false: BMSL.oSD@AOM❗
+05-17 00:41:12.168   605   605 I Telecom : BluetoothDeviceManager: Lost BluetoothHearingAid service. Removing all tracked devices.: BMSL.oSD@AOM❗
+05-17 00:41:12.176  1074  1722 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.176  1074  1722 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.184   605   605 W Looper  : Slow dispatch took 128ms main h=android.bluetooth.BluetoothProfileConnector$3 c=null m=101
+05-17 00:41:12.185   605   605 I Telecom : BluetoothDeviceManager: clearHearingAidCommunicationDevice: mHearingAidSetAsCommunicationDevice = false: BMSL.oSD@AOQ❗
+05-17 00:41:12.188   605   605 I Telecom : BluetoothDeviceManager: Lost BluetoothHearingAid service. Removing all tracked devices.: BMSL.oSD@AOQ❗
+05-17 00:41:12.193  1675  4846 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.193  1675  4846 D BluetoothHeadset: Unbinding service...
+05-17 00:41:12.204   605   605 I Telecom : BluetoothDeviceManager: Lost BluetoothHeadset service. Removing all tracked devices: BMSL.oSD@AOU❗
+05-17 00:41:12.205   605   605 I Telecom : BluetoothDeviceManager: Lost BluetoothHeadset service. Removing all tracked devices: BMSL.oSD@AOY❗
+05-17 00:41:12.204   386   386 E android.hardware.bluetooth.service.default: Bluetooth remote service has died
+05-17 00:41:12.207   386   386 I android.hardware.bluetooth.service.default: close
+05-17 00:41:12.212   605   780 I AS.BtHelper: setBtScoActiveDevice: (null) -> (null)
+05-17 00:41:12.213   605   780 I AS.BtHelper: setBtScoActiveDevice: (null) -> (null)
+05-17 00:41:12.230   605   647 W system_server: Long monitor contention with owner binder:605_1 (624) at void com.android.server.am.ActivityManagerService$AppDeathRecipient.binderDied()(ActivityManagerService.java:1584) waiters=0 in void com.android.server.am.BroadcastQueueModernImpl.updateRunningList() for 216ms
+05-17 00:41:12.259  1074  1233 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.271   386   386 E android.hardware.bluetooth.service.default: unable to open /dev/rfkill: Permission denied
+05-17 00:41:12.271   386   386 E android.hardware.bluetooth.service.default: rfkill unavailable
+05-17 00:41:12.286   386   386 E android.hardware.bluetooth-service.default: unlinkToDeath: removed reference to death recipient but unlink failed: DEAD_OBJECT
+05-17 00:41:12.346  1675  4846 D BluetoothHeadset: Proxy object disconnected
+05-17 00:41:12.351   605   649 I libprocessgroup: Successfully killed process cgroup uid 1002 pid 6858 in 2ms
+05-17 00:41:12.356  1906  2319 I BistoSettingsListener: listener created
+05-17 00:41:12.364  1409  8483 I CastDatabase: Opening the database
+05-17 00:41:12.446   848   917 D EGL_emulation: app_time_stats: avg=342494.38ms min=342494.38ms max=342494.38ms count=1
+05-17 00:41:12.467   848  8474 I OpenGLRenderer: Davey! duration=2745ms; Flags=0, FrameTimelineVsyncId=1980987, IntendedVsync=5080642224024, Vsync=5081658890650, InputEventId=0, HandleInputStart=5081673991600, AnimationStart=5081674039100, PerformTraversalsStart=5081725155100, DrawStart=5081814892700, FrameDeadline=5080658890690, FrameInterval=5081672903400, FrameStartTime=16666666, SyncQueued=5082563941800, SyncStart=5082578904300, IssueDrawCommandsStart=5082748941000, SwapBuffers=5083348746300, FrameCompleted=5083402608000, DequeueBufferDuration=35200, QueueBufferDuration=30664100, GpuCompleted=5083400898300, SwapBuffersCompleted=5083402608000, DisplayPresentTime=0, CommandSubmissionCompleted=5083348746300, 
+05-17 00:41:12.488   848   848 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+05-17 00:41:12.489   848   848 I Choreographer: Skipped 106 frames!  The application may be doing too much work on its main thread.
+05-17 00:41:12.596   848   917 D EGL_emulation: app_time_stats: avg=290163.84ms min=2.44ms max=4352334.00ms count=15
+05-17 00:41:12.652   848  5318 I OpenGLRenderer: Davey! duration=2236ms; Flags=0, FrameTimelineVsyncId=1980987, IntendedVsync=5080642224024, Vsync=5081658890650, InputEventId=0, HandleInputStart=5081673991600, AnimationStart=5081674039100, PerformTraversalsStart=5081725155100, DrawStart=5082747804000, FrameDeadline=5080658890690, FrameInterval=5081672903400, FrameStartTime=16666666, SyncQueued=5082748754300, SyncStart=5083421353800, IssueDrawCommandsStart=5083443928100, SwapBuffers=5083462418000, FrameCompleted=5083551681300, DequeueBufferDuration=94500, QueueBufferDuration=73634200, GpuCompleted=5083551117400, SwapBuffersCompleted=5083551681300, DisplayPresentTime=288234774265332736, CommandSubmissionCompleted=5083462418000, 
+05-17 00:41:12.736  1675  2316 I A       : No BT device
+05-17 00:41:12.741  1675  2316 I A       : No BT device
+05-17 00:41:12.743  1683  2224 I BugleRcsEngine: [53] bqvv.c: Connected state: [1], networkType: [WIFI]
+05-17 00:41:12.755  1683  2722 I BugleRcsEngine: [65] brqh.handleMessage: RcsEngineImpl[DUAL_REG]:[9a3fea95-16a7]>Handler: handleMessage processing message:[NOTIFY_UPTIME_IGNORE_STATE_CHANGED] with [non-null]:RcsEngineImpl reference
+05-17 00:41:12.808   848   914 W Looper  : Drained
+05-17 00:41:12.826  1654  1887 I AiAiEcho: Predicting[0]: 
+05-17 00:41:12.829  1654  1887 I AiAiEcho: EchoTargets: 
+05-17 00:41:12.829  1654  1887 I AiAiEcho: Filtered by AiAi flag check: 
+05-17 00:41:12.836  1654  1887 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+05-17 00:41:12.842  1654  1887 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+05-17 00:41:12.843  1409  8483 I SQLiteCastStore: 0 CastNetworkInfo instances loaded, 0 CastDeviceInfo instances loaded, 0 paired guest mode devices loaded.
+05-17 00:41:12.850   848   848 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+05-17 00:41:12.871  1409  3246 I ChimeraSrvcProxy: NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+05-17 00:41:12.872  1409  3246 W .gms.persistent: Large reply transaction of 1056768 bytes, interface descriptor , code 1
+05-17 00:41:12.894   605  2574 D ActivityManager: sync unfroze 5761 com.google.android.apps.messaging for 7
+05-17 00:41:12.898   605  2574 W ContentProviderHelper: Slow operation: 51ms so far, now at getContentProviderImpl: after updateOomAdj
+05-17 00:41:12.898   605  2574 W ContentProviderHelper: Slow operation: 52ms so far, now at getContentProviderImpl: done!

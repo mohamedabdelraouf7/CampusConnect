@@ -1,0 +1,2 @@
+--------- beginning of kernel
+05-17 00:40:05.626     0     0 I logd    : logdr: UID=2000 GID=2000 PID=8449 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns

@@ -1,0 +1,32 @@
+--------- beginning of kernel
+05-17 00:46:42.476     0     0 I logd    : logdr: UID=2000 GID=2000 PID=4815 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+--------- beginning of system
+05-17 00:46:45.508   614  1587 D OomAdjuster: Not killing cached processes
+--------- beginning of main
+05-17 00:46:45.578   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:46:50.011   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:46:53.195   614  2357 D OomAdjuster: Not killing cached processes
+05-17 00:46:55.566   614   756 D ActivityManager: freezing 3099 com.google.android.gms
+05-17 00:46:55.577   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:46:56.801   915   928 I ndroid.systemui: Background young concurrent copying GC freed 295854(13MB) AllocSpace objects, 0(0B) LOS objects, 39% free, 21MB/34MB, paused 5.058ms,151us total 39.691ms
+05-17 00:47:00.044  1681  1902 I AiAiEcho: Predicting[0]: 
+05-17 00:47:00.045  1681  1902 I AiAiEcho: EchoTargets: 
+05-17 00:47:00.045  1681  1902 I AiAiEcho: Filtered by AiAi flag check: 
+05-17 00:47:00.045  1681  1902 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+05-17 00:47:00.051   915  1000 D EGL_emulation: app_time_stats: avg=60008.05ms min=60008.05ms max=60008.05ms count=1
+05-17 00:47:00.052  1681  1902 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+05-17 00:47:00.062   915   915 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+05-17 00:47:05.576   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:47:05.582   915  1000 D EGL_emulation: app_time_stats: avg=5529.14ms min=5529.14ms max=5529.14ms count=1
+05-17 00:47:11.093   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:47:14.097   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:47:15.588   915   915 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 00:47:17.116   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:47:20.111   915   915 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 00:47:20.440   614   824 D ConnectivityService: releasing NetworkRequest [ REQUEST id=138, [ Transports: CELLULAR Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_VCN_MANAGED Uid: 10132 RequestorUid: 10132 RequestorPkg: com.google.android.googlequicksearchbox UnderlyingNetworks: Null] ] (release request)
+05-17 00:47:20.440   614   824 I ConnectivityService: Update capabilities for net 101 : -FOREGROUND
+05-17 00:47:20.448   358   426 I netd    : networkSetPermissionForNetwork(101, 1) <6.10ms>
+05-17 00:47:23.662   614   614 I ResourceTimer: GetResourceValue count=3796 pvalues=26000,72000,130000,730000
+05-17 00:47:23.662   614   614 I ResourceTimer: RetrieveAttributes count=2923 pvalues=24000,65000,120000,940000
+05-17 00:47:23.663   614   614 W Looper  : Slow dispatch took 463ms main h=android.content.res.ResourceTimer$1 c=null m=0
+05-17 00:47:24.944   614   666 D OomAdjuster: Not killing cached processes

@@ -1,0 +1,19 @@
+--------- beginning of kernel
+05-17 03:10:39.940     0     0 I logd    : logdr: UID=2000 GID=2000 PID=6936 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+--------- beginning of main
+05-17 03:10:41.372   857   857 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 03:10:43.664   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 03:10:46.675   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 03:10:51.369   857   857 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 03:10:52.694   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 03:10:55.702   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 03:10:58.714   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+05-17 03:11:00.004  1590  1769 I AiAiEcho: Predicting[0]: 
+05-17 03:11:00.004  1590  1769 I AiAiEcho: EchoTargets: 
+05-17 03:11:00.004  1590  1769 I AiAiEcho: Filtered by AiAi flag check: 
+05-17 03:11:00.005  1590  1769 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+05-17 03:11:00.006  1590  1769 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0 (types=[])
+05-17 03:11:00.019   857   857 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+05-17 03:11:00.042   857   936 D EGL_emulation: app_time_stats: avg=38656.25ms min=38656.25ms max=38656.25ms count=1
+05-17 03:11:01.369   857   857 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+05-17 03:11:01.722   857   857 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled

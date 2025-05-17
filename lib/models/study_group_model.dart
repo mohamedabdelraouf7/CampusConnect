@@ -1,88 +1,114 @@
 import 'package:uuid/uuid.dart';
+import 'dart:convert';
 
 class StudyGroupModel {
   final String id;
-  final String topic;
   final String courseCode;
   final String courseName;
+  final String topic;
+  final String description;
   final String location;
   final DateTime dateTime;
-  final String description;
   final String createdBy;
-  final int maxParticipants;
   final List<String> participants;
-  final bool isJoined;
+  final int maxParticipants;
   
   StudyGroupModel({
-    String? id,
-    required this.topic,
+    required this.id,
     required this.courseCode,
     required this.courseName,
+    required this.topic,
+    required this.description,
     required this.location,
     required this.dateTime,
-    this.description = '',
     required this.createdBy,
-    this.maxParticipants = 10,
     required this.participants,
-    this.isJoined = false,
-  }) : id = id ?? const Uuid().v4();
+    required this.maxParticipants,
+  });
+
+  bool get isJoined => participants.isNotEmpty;
+  bool get isFull => participants.length >= maxParticipants;
   
-  StudyGroupModel copyWith({
-    String? topic,
-    String? courseCode,
-    String? courseName,
-    String? location,
-    DateTime? dateTime,
-    String? description,
-    String? createdBy,
-    int? maxParticipants,
-    List<String>? participants,
-    bool? isJoined,
-  }) {
+  factory StudyGroupModel.fromJson(Map<String, dynamic> json) {
+    List<String> participantsList = [];
+    if (json['participants'] != null) {
+      if (json['participants'] is String) {
+        participantsList = List<String>.from(jsonDecode(json['participants']));
+      } else if (json['participants'] is List) {
+        participantsList = List<String>.from(json['participants']);
+      }
+    }
+    
+    // Handle date parsing
+    DateTime parsedDateTime;
+    if (json['dateTime'] != null) {
+      if (json['dateTime'] is int) {
+        parsedDateTime = DateTime.fromMillisecondsSinceEpoch(json['dateTime']);
+      } else if (json['dateTime'] is String) {
+        try {
+          parsedDateTime = DateTime.parse(json['dateTime']);
+        } catch (e) {
+          parsedDateTime = DateTime.now();
+        }
+      } else {
+        parsedDateTime = DateTime.now();
+      }
+    } else {
+      parsedDateTime = DateTime.now();
+    }
+    
     return StudyGroupModel(
-      id: this.id,
-      topic: topic ?? this.topic,
-      courseCode: courseCode ?? this.courseCode,
-      courseName: courseName ?? this.courseName,
-      location: location ?? this.location,
-      dateTime: dateTime ?? this.dateTime,
-      description: description ?? this.description,
-      createdBy: createdBy ?? this.createdBy,
-      maxParticipants: maxParticipants ?? this.maxParticipants,
-      participants: participants ?? this.participants,
-      isJoined: isJoined ?? this.isJoined,
+      id: json['id'] ?? '',
+      courseCode: json['courseCode'] ?? '',
+      courseName: json['courseName'] ?? '',
+      topic: json['topic'] ?? '',
+      description: json['description'] ?? '',
+      location: json['location'] ?? '',
+      dateTime: parsedDateTime,
+      createdBy: json['createdBy'] ?? '',
+      participants: participantsList,
+      maxParticipants: json['maxParticipants'] ?? 10,
     );
   }
   
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'topic': topic,
       'courseCode': courseCode,
       'courseName': courseName,
+      'topic': topic,
+      'description': description,
       'location': location,
       'dateTime': dateTime.millisecondsSinceEpoch,
-      'description': description,
       'createdBy': createdBy,
+      'participants': jsonEncode(participants),
       'maxParticipants': maxParticipants,
-      'participants': participants,
-      'isJoined': isJoined,
     };
   }
   
-  factory StudyGroupModel.fromJson(Map<String, dynamic> json) {
+  StudyGroupModel copyWith({
+    String? id,
+    String? courseCode,
+    String? courseName,
+    String? topic,
+    String? description,
+    String? location,
+    DateTime? dateTime,
+    String? createdBy,
+    List<String>? participants,
+    int? maxParticipants,
+  }) {
     return StudyGroupModel(
-      id: json['id'],
-      topic: json['topic'],
-      courseCode: json['courseCode'],
-      courseName: json['courseName'],
-      location: json['location'],
-      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-      description: json['description'] ?? '',
-      createdBy: json['createdBy'],
-      maxParticipants: json['maxParticipants'] ?? 10,
-      participants: List<String>.from(json['participants']),
-      isJoined: json['isJoined'] ?? false,
+      id: id ?? this.id,
+      courseCode: courseCode ?? this.courseCode,
+      courseName: courseName ?? this.courseName,
+      topic: topic ?? this.topic,
+      description: description ?? this.description,
+      location: location ?? this.location,
+      dateTime: dateTime ?? this.dateTime,
+      createdBy: createdBy ?? this.createdBy,
+      participants: participants ?? this.participants,
+      maxParticipants: maxParticipants ?? this.maxParticipants,
     );
   }
 }

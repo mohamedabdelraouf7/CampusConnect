@@ -7,7 +7,7 @@ import '../widgets/animated_list_item.dart';
 class AnnouncementsScreen extends StatefulWidget {
   final AppState appState;
   
-  const AnnouncementsScreen({Key? key, required this.appState}) : super(key: key);
+  const AnnouncementsScreen({super.key, required this.appState});
 
   @override
   _AnnouncementsScreenState createState() => _AnnouncementsScreenState();

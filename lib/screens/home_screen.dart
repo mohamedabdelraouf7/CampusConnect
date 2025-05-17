@@ -10,7 +10,7 @@ import '../widgets/notification_list.dart';
 class HomeScreen extends StatefulWidget {
   final AppState appState;
   
-  const HomeScreen({Key? key, required this.appState}) : super(key: key);
+  const HomeScreen({super.key, required this.appState});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

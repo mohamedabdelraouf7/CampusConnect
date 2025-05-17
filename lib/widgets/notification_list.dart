@@ -8,11 +8,11 @@ class NotificationList extends StatelessWidget {
   final Function(NotificationModel) onNotificationDismiss;
   
   const NotificationList({
-    Key? key,
+    super.key,
     required this.notifications,
     required this.onNotificationTap,
     required this.onNotificationDismiss,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

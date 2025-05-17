@@ -9,10 +9,10 @@ class UpcomingItemCard extends StatelessWidget {
   final VoidCallback onTap;
   
   const UpcomingItemCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -132,10 +132,12 @@ class UpcomingItemCard extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       event.title,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -180,11 +182,7 @@ class UpcomingItemCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if (event.isRsvped)
-                const Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                ),
+              _buildEventStatus(event),
             ],
           ),
         ),
@@ -278,5 +276,23 @@ class UpcomingItemCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildEventStatus(EventModel event) {
+    if (event.isAttending) {
+      return Chip(
+        label: const Text('Attending'),
+        backgroundColor: Colors.green.withAlpha(128),
+        labelStyle: const TextStyle(color: Colors.green),
+      );
+    }
+    if (event.isFull) {
+      return Chip(
+        label: const Text('Full'),
+        backgroundColor: Colors.red.withAlpha(128),
+        labelStyle: const TextStyle(color: Colors.red),
+      );
+    }
+    return const SizedBox.shrink();
   }
 }

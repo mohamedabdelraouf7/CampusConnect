@@ -38,7 +38,7 @@ class NotificationModel {
     String? relatedItemId,
   }) {
     return NotificationModel(
-      id: this.id,
+      id: id,
       title: title ?? this.title,
       message: message ?? this.message,
       type: type ?? this.type,

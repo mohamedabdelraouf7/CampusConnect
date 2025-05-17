@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SuccessAnimation extends StatefulWidget {
   final VoidCallback onComplete;
   
-  const SuccessAnimation({Key? key, required this.onComplete}) : super(key: key);
+  const SuccessAnimation({super.key, required this.onComplete});
 
   @override
   State<SuccessAnimation> createState() => _SuccessAnimationState();

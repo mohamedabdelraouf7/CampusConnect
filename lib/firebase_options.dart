@@ -11,8 +11,8 @@ class DefaultFirebaseOptions {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
-      case TargetPlatform.iOS:
-        return ios;
+      case TargetPlatform.windows:
+        return windows;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -27,7 +27,7 @@ class DefaultFirebaseOptions {
     projectId: 'campusconnect-27361',
     authDomain: 'campusconnect-27361.firebaseapp.com',
     storageBucket: 'campusconnect-27361.firebasestorage.app',
-    databaseURL: 'https://campusconnect-27361.firebaseio.com',
+    databaseURL: 'https://campusconnect-27361-default-rtdb.firebaseio.com/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -36,17 +36,18 @@ class DefaultFirebaseOptions {
     messagingSenderId: '629663839766',
     projectId: 'campusconnect-27361',
     storageBucket: 'campusconnect-27361.firebasestorage.app',
-    databaseURL: 'https://campusconnect-27361.firebaseio.com',
+    databaseURL: 'https://campusconnect-27361-default-rtdb.firebaseio.com/',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
+  // --- Desktop platform configs (fill in with your Firebase Console values) ---
+  static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyAYega8p98F9biIUuH_KdRfis3KZnGUt40',
-    appId: 'YOUR_IOS_APP_ID',
+    appId: '1:629663839766:android:6e270e6b53ae575ed7e737',
     messagingSenderId: '629663839766',
     projectId: 'campusconnect-27361',
-    storageBucket: 'campusconnect-27361.firebasestorage.app',
-    databaseURL: 'https://campusconnect-27361.firebaseio.com',
-    iosClientId: 'YOUR_IOS_CLIENT_ID',
-    iosBundleId: 'com.example.campusconnect',
+    storageBucket: 'campusconnect-27361.appspot.com',
+    databaseURL: 'https://campusconnect-27361-default-rtdb.firebaseio.com/',
   );
+
+ 
 }

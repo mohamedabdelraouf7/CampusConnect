@@ -6,11 +6,11 @@ class AnimatedBottomNav extends StatelessWidget {
   final List<BottomNavigationBarItem> items;
   
   const AnimatedBottomNav({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemSelected,
     required this.items,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,11 +6,11 @@ class AnimatedListItem extends StatefulWidget {
   final bool animate;
   
   const AnimatedListItem({
-    Key? key,
+    super.key,
     required this.child,
     required this.index,
     this.animate = true,
-  }) : super(key: key);
+  });
 
   @override
   State<AnimatedListItem> createState() => _AnimatedListItemState();

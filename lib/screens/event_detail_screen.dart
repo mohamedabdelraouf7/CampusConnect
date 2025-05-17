@@ -8,10 +8,10 @@ class EventDetailScreen extends StatefulWidget {
   final EventModel event;
   
   const EventDetailScreen({
-    Key? key, 
+    super.key, 
     required this.appState, 
     required this.event,
-  }) : super(key: key);
+  });
 
   @override
   _EventDetailScreenState createState() => _EventDetailScreenState();
@@ -26,17 +26,53 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     _event = widget.event;
   }
   
-  void _toggleRSVP() {
-    setState(() {
-      _event = _event.copyWith(isRsvped: !_event.isRsvped);
-      
-      // Update the event in the app state
-      final index = widget.appState.events.indexWhere((e) => e.id == _event.id);
-      if (index != -1) {
-        widget.appState.events[index] = _event;
-        widget.appState.saveEvents();
+  Future<void> _toggleAttendance() async {
+    try {
+      final updatedEvent = widget.event.copyWith(
+        attendees: widget.event.isAttending
+            ? widget.event.attendees.where((email) => email != widget.appState.userEmail).toList()
+            : [...widget.event.attendees, widget.appState.userEmail],
+      );
+      await widget.appState.firebaseService.addOrUpdateEvent(updatedEvent);
+      if (mounted) {
+        setState(() {
+          _event = updatedEvent;
+        });
       }
-    });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error updating attendance: $e')),
+        );
+      }
+    }
+  }
+  
+  Future<void> _deleteEvent() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Event'),
+        content: const Text('Are you sure you want to delete this event?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      await widget.appState.deleteEvent(widget.event.id);
+      if (mounted) {
+        Navigator.pop(context, true);
+      }
+    }
   }
   
   @override
@@ -95,9 +131,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           ),
                         ),
                       ),
-                      if (_event.isRsvped)
+                      if (_event.isAttending)
                         Chip(
-                          label: const Text('RSVP\'d'),
+                          label: const Text('Attending'),
                           backgroundColor: Colors.green.withOpacity(0.2),
                           labelStyle: const TextStyle(color: Colors.green),
                         ),
@@ -164,13 +200,13 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _toggleRSVP,
+                      onPressed: _toggleAttendance,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _event.isRsvped ? Colors.red : Colors.green,
+                        backgroundColor: _event.isAttending ? Colors.red : Colors.green,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: Text(
-                        _event.isRsvped ? 'Cancel RSVP' : 'RSVP to Event',
+                        _event.isAttending ? 'Cancel RSVP' : 'RSVP to Event',
                         style: const TextStyle(fontSize: 16),
                       ),
                     ),

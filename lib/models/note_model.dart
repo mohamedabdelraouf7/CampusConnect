@@ -31,10 +31,10 @@ class NoteModel {
     bool? isPinned,
   }) {
     return NoteModel(
-      id: this.id,
+      id: id,
       title: title ?? this.title,
       content: content ?? this.content,
-      dateCreated: this.dateCreated,
+      dateCreated: dateCreated,
       dateModified: dateModified ?? DateTime.now(),
       color: color ?? this.color,
       isPinned: isPinned ?? this.isPinned,
@@ -54,14 +54,66 @@ class NoteModel {
   }
   
   factory NoteModel.fromJson(Map<String, dynamic> json) {
+    // Handle isPinned as int or String
+    dynamic isPinnedValue = json['isPinned'];
+    bool isPinnedBool;
+    if (isPinnedValue is int) {
+      isPinnedBool = isPinnedValue == 1;
+    } else if (isPinnedValue is String) {
+      isPinnedBool = isPinnedValue == '1' || isPinnedValue.toLowerCase() == 'true';
+    } else {
+      isPinnedBool = false;
+    }
+
+    // Handle color as int or String
+    dynamic colorValue = json['color'];
+    int colorInt;
+    if (colorValue is int) {
+      colorInt = colorValue;
+    } else if (colorValue is String) {
+      colorInt = int.tryParse(colorValue) ?? Colors.white.value;
+    } else {
+      colorInt = Colors.white.value;
+    }
+
+    // Handle dateCreated as int (milliseconds) or String (ISO format)
+    DateTime dateCreated;
+    dynamic dateCreatedValue = json['dateCreated'];
+    if (dateCreatedValue is int) {
+      dateCreated = DateTime.fromMillisecondsSinceEpoch(dateCreatedValue);
+    } else if (dateCreatedValue is String) {
+      try {
+        dateCreated = DateTime.parse(dateCreatedValue);
+      } catch (e) {
+        dateCreated = DateTime.now();
+      }
+    } else {
+      dateCreated = DateTime.now();
+    }
+
+    // Handle dateModified as int (milliseconds) or String (ISO format)
+    DateTime dateModified;
+    dynamic dateModifiedValue = json['dateModified'];
+    if (dateModifiedValue is int) {
+      dateModified = DateTime.fromMillisecondsSinceEpoch(dateModifiedValue);
+    } else if (dateModifiedValue is String) {
+      try {
+        dateModified = DateTime.parse(dateModifiedValue);
+      } catch (e) {
+        dateModified = DateTime.now();
+      }
+    } else {
+      dateModified = DateTime.now();
+    }
+
     return NoteModel(
       id: json['id'],
       title: json['title'],
       content: json['content'],
-      dateCreated: DateTime.fromMillisecondsSinceEpoch(json['dateCreated']),
-      dateModified: DateTime.fromMillisecondsSinceEpoch(json['dateModified']),
-      color: Color(json['color']),
-      isPinned: json['isPinned'] == 1,
+      dateCreated: dateCreated,
+      dateModified: dateModified,
+      color: Color(colorInt),
+      isPinned: isPinnedBool,
     );
   }
 }

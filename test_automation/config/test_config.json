@@ -1,0 +1,48 @@
+{
+    "test_settings": {
+        "log_level": "INFO",
+        "run_unit_tests": true,
+        "run_widget_tests": true,
+        "run_integration_tests": true,
+        "generate_coverage": true,
+        "coverage_threshold": 80,
+        "test_timeout_seconds": 300,
+        "retry_failed_tests": true,
+        "max_retries": 2
+    },
+    "device_settings": {
+        "preferred_devices": [],
+        "exclude_devices": [],
+        "min_api_level": 21,
+        "max_api_level": 33
+    },
+    "test_categories": {
+        "unit": {
+            "enabled": true,
+            "include_patterns": ["test/unit/**/*_test.dart"],
+            "exclude_patterns": []
+        },
+        "widget": {
+            "enabled": true,
+            "include_patterns": ["test/widget/**/*_test.dart"],
+            "exclude_patterns": []
+        },
+        "integration": {
+            "enabled": true,
+            "include_patterns": ["test/integration/**/*_test.dart"],
+            "exclude_patterns": []
+        }
+    },
+    "logging": {
+        "save_device_logs": true,
+        "save_test_output": true,
+        "save_coverage_report": true,
+        "log_retention_days": 7,
+        "max_log_size_mb": 10
+    },
+    "notifications": {
+        "send_email_on_failure": false,
+        "email_recipients": [],
+        "slack_webhook_url": ""
+    }
+} 

@@ -1,310 +1,406 @@
 import 'package:flutter/material.dart';
 import '../models/app_state.dart';
 import '../services/notification_service.dart';
+import '../models/notification_preferences.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
   final AppState appState;
   
-  const NotificationSettingsScreen({Key? key, required this.appState}) : super(key: key);
+  const NotificationSettingsScreen({super.key, required this.appState});
 
   @override
   State<NotificationSettingsScreen> createState() => _NotificationSettingsScreenState();
 }
 
 class _NotificationSettingsScreenState extends State<NotificationSettingsScreen> {
-  late bool _enableClassReminders;
-  late bool _enableEventReminders;
-  late bool _enableStudyGroupReminders;
-  late bool _enableDeadlineReminders;
-  late int _classReminderMinutes;
-  late int _eventReminderMinutes;
-  late int _studyGroupReminderMinutes;
-  late List<int> _deadlineReminderTimes;
-  
+  late NotificationPreferences _preferences;
+  final _notificationService = NotificationService();
+  bool _isLoading = true;
+  String? _error;
+
   @override
   void initState() {
     super.initState();
-    _loadPreferences();
+    _initializePreferences();
   }
-  
-  void _loadPreferences() {
-    _enableClassReminders = widget.appState.enableClassReminders;
-    _enableEventReminders = widget.appState.enableEventReminders;
-    _enableStudyGroupReminders = widget.appState.enableStudyGroupReminders;
-    _enableDeadlineReminders = widget.appState.enableDeadlineReminders;
-    _classReminderMinutes = widget.appState.classReminderMinutes;
-    _eventReminderMinutes = widget.appState.eventReminderMinutes;
-    _studyGroupReminderMinutes = widget.appState.studyGroupReminderMinutes;
-    _deadlineReminderTimes = List.from(widget.appState.deadlineReminderTimes);
-  }
-  
-  Future<void> _savePreferences() async {
-    widget.appState.enableClassReminders = _enableClassReminders;
-    widget.appState.enableEventReminders = _enableEventReminders;
-    widget.appState.enableStudyGroupReminders = _enableStudyGroupReminders;
-    widget.appState.enableDeadlineReminders = _enableDeadlineReminders;
-    widget.appState.classReminderMinutes = _classReminderMinutes;
-    widget.appState.eventReminderMinutes = _eventReminderMinutes;
-    widget.appState.studyGroupReminderMinutes = _studyGroupReminderMinutes;
-    widget.appState.deadlineReminderTimes = _deadlineReminderTimes;
-    
-    await widget.appState.savePreferences();
-    
-    // Reschedule all notifications based on new preferences
-    await _rescheduleNotifications();
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Notification settings saved')),
-    );
-  }
-  
-  Future<void> _rescheduleNotifications() async {
-    final notificationService = NotificationService();
-    
-    // Cancel all existing notifications
-    await notificationService.cancelAllNotifications();
-    
-    // Reschedule class reminders
-    if (_enableClassReminders) {
-      for (final classModel in widget.appState.classes) {
-        await notificationService.scheduleClassReminders(classModel, _classReminderMinutes);
+
+  Future<void> _initializePreferences() async {
+    try {
+      if (!_notificationService.isInitialized) {
+        await _notificationService.init();
+      }
+      if (mounted) {
+        setState(() {
+          _preferences = _notificationService.preferences;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to initialize notification settings: $e';
+          _isLoading = false;
+        });
       }
     }
-    
-    // Reschedule event reminders
-    if (_enableEventReminders) {
-      for (final event in widget.appState.events) {
-        if (event.dateTime.isAfter(DateTime.now())) {
-          await notificationService.scheduleEventReminder(event, _eventReminderMinutes);
-        }
-      }
-    }
-    
-    // Reschedule study group reminders
-    if (_enableStudyGroupReminders) {
-      for (final studyGroup in widget.appState.studyGroups) {
-        if (studyGroup.dateTime.isAfter(DateTime.now())) {
-          await notificationService.scheduleStudyGroupReminder(studyGroup, _studyGroupReminderMinutes);
-        }
-      }
-    }
-    
-    // Deadline reminders are scheduled when deadlines are created/updated
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notification Settings'),
+        actions: [
+          if (!_isLoading && _error == null)
+            IconButton(
+              icon: const Icon(Icons.restore),
+              onPressed: () async {
+                await _preferences.resetToDefaults();
+                setState(() {});
+              },
+              tooltip: 'Reset to defaults',
+            ),
+        ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // Class reminders
-          SwitchListTile(
-            title: const Text('Class Reminders'),
-            subtitle: const Text('Get notified before your classes start'),
-            value: _enableClassReminders,
-            onChanged: (value) {
-              setState(() {
-                _enableClassReminders = value;
-              });
-            },
-          ),
-          
-          if (_enableClassReminders)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Remind me ${_classReminderMinutes} minutes before class'),
-                  Slider(
-                    value: _classReminderMinutes.toDouble(),
-                    min: 5,
-                    max: 60,
-                    divisions: 11,
-                    label: '${_classReminderMinutes} min',
-                    onChanged: (value) {
-                      setState(() {
-                        _classReminderMinutes = value.round();
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          
-          const Divider(),
-          
-          // Event reminders
-          SwitchListTile(
-            title: const Text('Event Reminders'),
-            subtitle: const Text('Get notified before events start'),
-            value: _enableEventReminders,
-            onChanged: (value) {
-              setState(() {
-                _enableEventReminders = value;
-              });
-            },
-          ),
-          
-          if (_enableEventReminders)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Remind me ${_eventReminderMinutes} minutes before events'),
-                  Slider(
-                    value: _eventReminderMinutes.toDouble(),
-                    min: 15,
-                    max: 120,
-                    divisions: 7,
-                    label: '${_eventReminderMinutes} min',
-                    onChanged: (value) {
-                      setState(() {
-                        _eventReminderMinutes = value.round();
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          
-          const Divider(),
-          
-          // Study group reminders
-          SwitchListTile(
-            title: const Text('Study Group Reminders'),
-            subtitle: const Text('Get notified before study group sessions'),
-            value: _enableStudyGroupReminders,
-            onChanged: (value) {
-              setState(() {
-                _enableStudyGroupReminders = value;
-              });
-            },
-          ),
-          
-          if (_enableStudyGroupReminders)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Remind me ${_studyGroupReminderMinutes} minutes before study groups'),
-                  Slider(
-                    value: _studyGroupReminderMinutes.toDouble(),
-                    min: 15,
-                    max: 120,
-                    divisions: 7,
-                    label: '${_studyGroupReminderMinutes} min',
-                    onChanged: (value) {
-                      setState(() {
-                        _studyGroupReminderMinutes = value.round();
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          
-          const Divider(),
-          
-          // Deadline reminders
-          SwitchListTile(
-            title: const Text('Deadline Reminders'),
-            subtitle: const Text('Get notified about upcoming deadlines'),
-            value: _enableDeadlineReminders,
-            onChanged: (value) {
-              setState(() {
-                _enableDeadlineReminders = value;
-              });
-            },
-          ),
-          
-          if (_enableDeadlineReminders)
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Remind me at these times before deadlines:'),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      _buildDeadlineChip(60, '1 hour'),
-                      _buildDeadlineChip(720, '12 hours'),
-                      _buildDeadlineChip(1440, '1 day'),
-                      _buildDeadlineChip(2880, '2 days'),
-                      _buildDeadlineChip(4320, '3 days'),
-                      _buildDeadlineChip(10080, '1 week'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          
-          const SizedBox(height: 24),
-          
-          ElevatedButton(
-            onPressed: _savePreferences,
-            child: const Text('Save Settings'),
-          ),
-          
-          const SizedBox(height: 16),
-          
-          OutlinedButton(
-            onPressed: () async {
-              final confirmed = await showDialog<bool>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Clear All Notifications'),
-                  content: const Text('This will cancel all scheduled notifications. Are you sure?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: const Text('Cancel'),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _error!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: _initializePreferences,
+                          child: const Text('Retry'),
+                        ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: const Text('Clear All'),
+                  ),
+                )
+              : ListView(
+                  children: [
+                    _buildSection(
+                      title: 'Class Notifications',
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Enable Class Reminders'),
+                          subtitle: const Text('Get notified before your classes start'),
+                          value: _preferences.enableClassNotifications,
+                          onChanged: (value) {
+                            setState(() {
+                              _preferences.enableClassNotifications = value;
+                            });
+                          },
+                        ),
+                        if (_preferences.enableClassNotifications)
+                          ListTile(
+                            title: const Text('Reminder Time'),
+                            subtitle: Text('${_preferences.classReminderMinutes} minutes before class'),
+                            trailing: DropdownButton<int>(
+                              value: _preferences.classReminderMinutes,
+                              items: [5, 10, 15, 30, 60].map((minutes) {
+                                return DropdownMenuItem(
+                                  value: minutes,
+                                  child: Text('$minutes min'),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _preferences.classReminderMinutes = value;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                    _buildSection(
+                      title: 'Event Notifications',
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Enable Event Reminders'),
+                          subtitle: const Text('Get notified before campus events'),
+                          value: _preferences.enableEventNotifications,
+                          onChanged: (value) {
+                            setState(() {
+                              _preferences.enableEventNotifications = value;
+                            });
+                          },
+                        ),
+                        if (_preferences.enableEventNotifications)
+                          ListTile(
+                            title: const Text('Reminder Time'),
+                            subtitle: Text('${_preferences.eventReminderMinutes} minutes before event'),
+                            trailing: DropdownButton<int>(
+                              value: _preferences.eventReminderMinutes,
+                              items: [15, 30, 60, 120, 1440].map((minutes) {
+                                String text = minutes >= 1440 
+                                    ? '${minutes ~/ 1440} day'
+                                    : '$minutes min';
+                                return DropdownMenuItem(
+                                  value: minutes,
+                                  child: Text(text),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _preferences.eventReminderMinutes = value;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                    _buildSection(
+                      title: 'Task Notifications',
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Enable Task Reminders'),
+                          subtitle: const Text('Get notified about upcoming assignments and exams'),
+                          value: _preferences.enableTaskNotifications,
+                          onChanged: (value) {
+                            setState(() {
+                              _preferences.enableTaskNotifications = value;
+                            });
+                          },
+                        ),
+                        if (_preferences.enableTaskNotifications)
+                          ListTile(
+                            title: const Text('Reminder Times'),
+                            subtitle: Text(_preferences.taskReminderMinutes.map((minutes) {
+                              if (minutes >= 1440) {
+                                return '${minutes ~/ 1440} days';
+                              } else if (minutes >= 60) {
+                                return '${minutes ~/ 60} hours';
+                              } else {
+                                return '$minutes minutes';
+                              }
+                            }).join(', ')),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: _showTaskReminderDialog,
+                            ),
+                          ),
+                      ],
+                    ),
+                    _buildSection(
+                      title: 'Real-time Alerts',
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Enable Real-time Alerts'),
+                          subtitle: const Text('Get instant notifications for schedule changes and cancellations'),
+                          value: _preferences.enableRealTimeAlerts,
+                          onChanged: (value) {
+                            setState(() {
+                              _preferences.enableRealTimeAlerts = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    _buildSection(
+                      title: 'Notification Management',
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.notifications_off),
+                          title: const Text('Clear All Notifications'),
+                          subtitle: const Text('Cancel all scheduled notifications'),
+                          onTap: () => _showClearNotificationsDialog(),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              );
-              
-              if (confirmed == true) {
-                await NotificationService().cancelAllNotifications();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('All notifications cleared')),
-                );
-              }
-            },
-            child: const Text('Clear All Notifications'),
+    );
+  }
+
+  Widget _buildSection({
+    required String title,
+    required List<Widget> children,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
+        ...children,
+        const Divider(),
+      ],
+    );
+  }
+
+  Future<void> _showTaskReminderDialog() async {
+    final List<int> currentTimes = List.from(_preferences.taskReminderMinutes);
+    final List<TimeOfDay> selectedTimes = currentTimes.map((minutes) {
+      final hours = minutes ~/ 60;
+      final mins = minutes % 60;
+      return TimeOfDay(hour: hours, minute: mins);
+    }).toList();
+
+    final result = await showDialog<List<TimeOfDay>>(
+      context: context,
+      builder: (context) => _TaskReminderDialog(selectedTimes: selectedTimes),
+    );
+
+    if (result != null) {
+      setState(() {
+        _preferences.taskReminderMinutes = result.map((time) {
+          return time.hour * 60 + time.minute;
+        }).toList();
+      });
+    }
+  }
+
+  Future<void> _showClearNotificationsDialog() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Clear All Notifications'),
+        content: const Text('This will cancel all scheduled notifications. Are you sure?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Clear All'),
           ),
         ],
       ),
     );
+
+    if (confirmed == true) {
+      await _notificationService.cancelAllNotifications();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('All notifications cleared')),
+        );
+      }
+    }
   }
-  
-  Widget _buildDeadlineChip(int minutes, String label) {
-    final isSelected = _deadlineReminderTimes.contains(minutes);
-    
-    return FilterChip(
-      label: Text(label),
-      selected: isSelected,
-      onSelected: (selected) {
-        setState(() {
-          if (selected) {
-            _deadlineReminderTimes.add(minutes);
-          } else {
-            _deadlineReminderTimes.remove(minutes);
-          }
-        });
-      },
+}
+
+class _TaskReminderDialog extends StatefulWidget {
+  final List<TimeOfDay> selectedTimes;
+
+  const _TaskReminderDialog({required this.selectedTimes});
+
+  @override
+  State<_TaskReminderDialog> createState() => _TaskReminderDialogState();
+}
+
+class _TaskReminderDialogState extends State<_TaskReminderDialog> {
+  late List<TimeOfDay> _selectedTimes;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedTimes = List.from(widget.selectedTimes);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Task Reminder Times'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Select when you want to be reminded about tasks:'),
+          const SizedBox(height: 16),
+          ...List.generate(_selectedTimes.length, (index) {
+            return ListTile(
+              title: Text('Reminder ${index + 1}'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(
+                    child: Text(_formatTimeOfDay(_selectedTimes[index])),
+                    onPressed: () async {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: _selectedTimes[index],
+                      );
+                      if (time != null) {
+                        setState(() {
+                          _selectedTimes[index] = time;
+                        });
+                      }
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        _selectedTimes.removeAt(index);
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          }),
+          if (_selectedTimes.length < 5)
+            TextButton.icon(
+              icon: const Icon(Icons.add),
+              label: const Text('Add Reminder'),
+              onPressed: () async {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (time != null) {
+                  setState(() {
+                    _selectedTimes.add(time);
+                  });
+                }
+              },
+            ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, _selectedTimes),
+          child: const Text('Save'),
+        ),
+      ],
     );
+  }
+
+  String _formatTimeOfDay(TimeOfDay time) {
+    final hours = time.hour;
+    final minutes = time.minute;
+    if (hours >= 24) {
+      return '${hours ~/ 24} days';
+    } else if (hours > 0) {
+      return '$hours hours ${minutes > 0 ? '$minutes min' : ''}';
+    } else {
+      return '$minutes minutes';
+    }
   }
 }

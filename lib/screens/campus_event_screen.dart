@@ -3,11 +3,13 @@ import '../models/app_state.dart';
 import '../models/event_model.dart';
 import '../widgets/event_card.dart';
 import 'event_detail_screen.dart';
+import 'event_form_screen.dart';
+import '../utils/animated_route.dart';
 
 class CampusEventScreen extends StatefulWidget {
   final AppState appState;
   
-  const CampusEventScreen({Key? key, required this.appState}) : super(key: key);
+  const CampusEventScreen({super.key, required this.appState});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -31,6 +33,22 @@ class _CampusEventScreenState extends State<CampusEventScreen> {
             child: _buildEventsList(),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            SlidePageRoute(
+              page: EventFormScreen(appState: widget.appState),
+              direction: AxisDirection.up,
+            ),
+          );
+          if (result == true) {
+            setState(() {});
+          }
+        },
+        child: const Icon(Icons.add),
+        tooltip: 'Add Event',
       ),
     );
   }
@@ -74,7 +92,7 @@ class _CampusEventScreenState extends State<CampusEventScreen> {
     // Apply filter
     if (_selectedFilter != 'All') {
       if (_selectedFilter == 'RSVP\'d') {
-        filteredEvents = filteredEvents.where((event) => event.isRsvped).toList();
+        filteredEvents = filteredEvents.where((event) => event.isAttending).toList();
       } else {
         // In a real app, you would filter by category
         // For now, we'll just keep all events
@@ -119,14 +137,14 @@ class _CampusEventScreenState extends State<CampusEventScreen> {
           onTap: () async {
             final result = await Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => EventDetailScreen(
+              SlidePageRoute(
+                page: EventDetailScreen(
                   appState: widget.appState,
                   event: event,
                 ),
+                direction: AxisDirection.left,
               ),
             );
-            
             if (result == true) {
               setState(() {});
             }
